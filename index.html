@@ -7,281 +7,433 @@
 <title>Ledger - Business Accounting</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{background:#0f172a;font-family:'DM Sans',sans-serif;color:#f1f5f9;-webkit-font-smoothing:antialiased}
-  ::-webkit-scrollbar{width:6px;height:6px}
-  ::-webkit-scrollbar-track{background:#0f172a}
-  ::-webkit-scrollbar-thumb{background:#334155;border-radius:3px}
-  select option{background:#0f172a;color:#f1f5f9}
-  optgroup{background:#0f172a;color:#94a3b8}
-  input[type=number]::-webkit-inner-spin-button{opacity:.3}
-  @media(max-width:500px){.form-grid{grid-template-columns:1fr!important}.stats-grid{grid-template-columns:repeat(2,1fr)!important}}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0f172a;font-family:'DM Sans',sans-serif;color:#f1f5f9;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:#0f172a}
+::-webkit-scrollbar-thumb{background:#334155;border-radius:3px}
+select option{background:#0f172a;color:#f1f5f9}
+optgroup{background:#0f172a;color:#94a3b8}
+input[type=number]::-webkit-inner-spin-button{opacity:.3}
+
+.container{min-height:100vh;max-width:860px;margin:0 auto;padding:0 12px}
+.header{display:flex;justify-content:space-between;align-items:center;padding:16px 0 10px;border-bottom:1px solid #1e293b;flex-wrap:wrap;gap:10px}
+.logo{font-size:26px;font-weight:800;letter-spacing:-1px;background:linear-gradient(135deg,#06b6d4,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.header-right{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+
+.tab-bar{display:flex;gap:2px;padding:10px 0 0;border-bottom:1px solid #1e293b;overflow-x:auto}
+.tab-btn{background:none;border:none;color:#64748b;padding:7px 14px;cursor:pointer;font-size:13px;font-weight:600;border-bottom:2px solid transparent;font-family:inherit;white-space:nowrap;transition:color .15s}
+.tab-btn.active{color:#f1f5f9;border-bottom-color:#06b6d4}
+
+.content{padding:14px 0 40px;display:flex;flex-direction:column;gap:14px}
+.card{background:#1e293b;border-radius:10px;padding:16px}
+.card-title{margin:0 0 12px;font-size:15px;font-weight:700;letter-spacing:-0.3px}
+
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}
+.stat-card{background:#1e293b;border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field{display:flex;flex-direction:column;gap:3px}
+.field-full{grid-column:1/-1}
+.lbl{font-size:11px;color:#94a3b8;font-weight:600}
+.inp,.sel{background:#0f172a;border:1px solid #334155;border-radius:6px;color:#f1f5f9;padding:7px 10px;font-size:13px;font-family:inherit;outline:none;width:100%}
+.btn-main{margin-top:12px;background:linear-gradient(135deg,#06b6d4,#8b5cf6);border:none;border-radius:6px;color:#fff;padding:10px 24px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;width:100%}
+.btn-sm{background:none;border:1px solid #334155;color:#64748b;border-radius:4px;cursor:pointer;font-size:10px;line-height:1;padding:3px 6px;font-family:inherit}
+.btn-sm.danger{border-color:#ef444444;color:#ef4444}
+.btn-del{background:none;border:1px solid #334155;color:#64748b;border-radius:4px;cursor:pointer;font-size:14px;line-height:1;padding:2px 5px;font-family:inherit}
+
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12px}
+.th{text-align:left;padding:7px 8px;background:#0f172a;color:#94a3b8;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.th-sub{text-align:left;padding:5px 8px;background:#0f172a;color:#64748b;font-size:10px;font-weight:600}
+.td{padding:7px 8px;border-bottom:1px solid rgba(30,41,59,.13);color:#cbd5e1}
+.td-r{text-align:right}
+.td-b{font-weight:700}
+.br{border-right:1px solid #1e293b}
+
+.result-bar{margin-top:10px;padding:9px 12px;border-radius:6px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+
+.entry-row{display:flex;align-items:center;gap:8px;padding:7px 8px;background:#0f172a;border-radius:6px;flex-wrap:wrap;margin-bottom:4px}
+.cat-badge{font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;white-space:nowrap}
+.sub-badge{font-size:10px;color:#64748b;background:#0f172a;padding:1px 5px;border-radius:3px}
+
+.mono{font-family:‘JetBrains Mono’,monospace}
+.hero-card{background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:10px;padding:16px}
+.net-worth-bar{background:rgba(6,182,212,.06);border:1px solid rgba(6,182,212,.2);border-radius:10px;display:flex;justify-content:space-between;align-items:center;padding:12px 16px}
+.bar-fill{height:4px;border-radius:2px;transition:width .3s}
+
+.hidden{display:none}
+@media(max-width:500px){.form-grid{grid-template-columns:1fr!important}.stats-grid{grid-template-columns:repeat(2,1fr)!important}}
 </style>
+
 </head>
 <body>
-<div id="root"></div>
-<script type="module">
-import { h, render } from 'https://esm.sh/preact@10.19.3';
-import { useState, useEffect, useCallback, useMemo } from 'https://esm.sh/preact@10.19.3/hooks';
-import htm from 'https://esm.sh/htm@3.1.1';
+<div class="container" id="app">
+  <!-- Header -->
+  <header class="header">
+    <div>
+      <h1 class="logo">Ledger</h1>
+      <p style="color:#64748b;font-size:12px">Business accounting</p>
+    </div>
+    <div class="header-right">
+      <label style="color:#64748b;font-size:10px">Opening Stock</label>
+      <input id="stockInput" class="inp" style="width:80px;padding:3px 6px;font-size:12px" type="number" value="0">
+      <button class="btn-sm" onclick="exportData()" title="Export backup">↓ Export</button>
+      <button class="btn-sm" onclick="importData()" title="Import backup">↑ Import</button>
+      <button class="btn-sm danger" onclick="resetAll()" title="Reset all">Reset</button>
+    </div>
+  </header>
 
-const html = htm.bind(h);
+  <!-- Tabs -->
 
+  <nav class="tab-bar" id="tabBar"></nav>
+
+  <!-- Tab Content -->
+
+  <div class="content" id="tabContent"></div>
+</div>
+
+<script>
 // ─── DATA ───
 const CATEGORIES = {
-income:{label:“Income (Cash In)”,color:”#22c55e”,icon:“↓”},
-business_expense:{label:“Business Expense”,color:”#f59e0b”,icon:“↗”},
-business_purchase:{label:“Business Purchase”,color:”#3b82f6”,icon:“◆”},
-personal_expense:{label:“Personal Expense”,color:”#ef4444”,icon:“↑”},
-loan_taken:{label:“Loan Taken”,color:”#a855f7”,icon:“⬇”},
-loan_repayment:{label:“Loan Repayment”,color:”#a855f7”,icon:“⬆”},
-creditor_purchase:{label:“Purchase on Credit”,color:”#ec4899”,icon:“📋”},
-creditor_payment:{label:“Creditor Payment”,color:”#ec4899”,icon:“✓”},
-overdraft_taken:{label:“Overdraft Used”,color:”#f97316”,icon:“⚡”},
-overdraft_repayment:{label:“Overdraft Repaid”,color:”#f97316”,icon:“↩”},
-neutral:{label:“Neutral (Transfer)”,color:”#8b5cf6”,icon:“⇄”},
+  income:{label:"Income (Cash In)",color:"#22c55e",icon:"↓"},
+  business_expense:{label:"Business Expense",color:"#f59e0b",icon:"↗"},
+  business_purchase:{label:"Business Purchase",color:"#3b82f6",icon:"◆"},
+  personal_expense:{label:"Personal Expense",color:"#ef4444",icon:"↑"},
+  loan_taken:{label:"Loan Taken",color:"#a855f7",icon:"⬇"},
+  loan_repayment:{label:"Loan Repayment",color:"#a855f7",icon:"⬆"},
+  creditor_purchase:{label:"Purchase on Credit",color:"#ec4899",icon:"📋"},
+  creditor_payment:{label:"Creditor Payment",color:"#ec4899",icon:"✓"},
+  overdraft_taken:{label:"Overdraft Used",color:"#f97316",icon:"⚡"},
+  overdraft_repayment:{label:"Overdraft Repaid",color:"#f97316",icon:"↩"},
+  neutral:{label:"Neutral (Transfer)",color:"#8b5cf6",icon:"⇄"},
 };
 
 const SUBCATEGORIES = {
-business_expense:[{value:“salary”,label:“Salary (Tutor, Maid, etc.)”},{value:“utilities”,label:“Utilities (Electricity, Water)”},{value:“rent”,label:“Rent”},{value:“maintenance”,label:“Maintenance”},{value:“transport”,label:“Transport”},{value:“other_biz_exp”,label:“Other”}],
-business_purchase:[{value:“machine”,label:“Machine / Equipment”},{value:“furniture”,label:“Furniture”},{value:“instruments”,label:“Instruments”},{value:“inventory”,label:“Inventory / Stock”},{value:“electronics”,label:“Electronics”},{value:“vehicle”,label:“Vehicle”},{value:“other_biz_pur”,label:“Other”}],
-personal_expense:[{value:“food”,label:“Food”},{value:“grocery”,label:“Grocery”},{value:“medical”,label:“Medical”},{value:“clothing”,label:“Clothing”},{value:“entertainment”,label:“Entertainment”},{value:“other_personal”,label:“Other”}],
-income:[{value:“sales”,label:“Sales / Service Income”},{value:“commission”,label:“Commission”},{value:“interest”,label:“Interest Earned”},{value:“other_income”,label:“Other”}],
-creditor_purchase:[{value:“machine”,label:“Machine / Equipment”},{value:“furniture”,label:“Furniture”},{value:“instruments”,label:“Instruments”},{value:“inventory”,label:“Inventory / Stock”},{value:“electronics”,label:“Electronics”},{value:“vehicle”,label:“Vehicle”},{value:“other_biz_pur”,label:“Other”}],
+  business_expense:[{v:"salary",l:"Salary (Tutor, Maid, etc.)"},{v:"utilities",l:"Utilities (Electricity, Water)"},{v:"rent",l:"Rent"},{v:"maintenance",l:"Maintenance"},{v:"transport",l:"Transport"},{v:"other_biz_exp",l:"Other"}],
+  business_purchase:[{v:"machine",l:"Machine / Equipment"},{v:"furniture",l:"Furniture"},{v:"instruments",l:"Instruments"},{v:"inventory",l:"Inventory / Stock"},{v:"electronics",l:"Electronics"},{v:"vehicle",l:"Vehicle"},{v:"other_biz_pur",l:"Other"}],
+  personal_expense:[{v:"food",l:"Food"},{v:"grocery",l:"Grocery"},{v:"medical",l:"Medical"},{v:"clothing",l:"Clothing"},{v:"entertainment",l:"Entertainment"},{v:"other_personal",l:"Other"}],
+  income:[{v:"sales",l:"Sales / Service Income"},{v:"commission",l:"Commission"},{v:"interest",l:"Interest Earned"},{v:"other_income",l:"Other"}],
+  creditor_purchase:[{v:"machine",l:"Machine / Equipment"},{v:"furniture",l:"Furniture"},{v:"instruments",l:"Instruments"},{v:"inventory",l:"Inventory / Stock"},{v:"electronics",l:"Electronics"},{v:"vehicle",l:"Vehicle"},{v:"other_biz_pur",l:"Other"}],
 };
 
-const ASSET_TYPES = {machine:“Machine”,furniture:“Furniture”,instruments:“Instruments”,inventory:“Inventory”,electronics:“Electronics”,vehicle:“Vehicle”,other_biz_pur:“Other Assets”};
-const MONTHS = [“Jan”,“Feb”,“Mar”,“Apr”,“May”,“Jun”,“Jul”,“Aug”,“Sep”,“Oct”,“Nov”,“Dec”];
+const ASSET_TYPES={machine:"Machine",furniture:"Furniture",instruments:"Instruments",inventory:"Inventory",electronics:"Electronics",vehicle:"Vehicle",other_biz_pur:"Other Assets"};
+const MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const TABS=["Dashboard","Add Entry","Accounts","Reports"];
 
+// ─── State ───
+let state = {entries:[], openingStock:0};
+let currentTab = 0;
+
+// ─── Helpers ───
 function genId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
-function formatINR(n){if(n==null)return”₹0”;const s=Math.abs(n).toLocaleString(“en-IN”,{maximumFractionDigits:0});return(n<0?”-₹”:“₹”)+s}
-function getMonthKey(date){const d=new Date(date);return d.getFullYear()+”-”+String(d.getMonth()+1).padStart(2,“0”)}
-function getMonthLabel(key){const[y,m]=key.split(”-”);return MONTHS[parseInt(m)-1]+” “+y}
+function formatINR(n){if(n==null)return"₹0";const s=Math.abs(n).toLocaleString("en-IN",{maximumFractionDigits:0});return(n<0?"-₹":"₹")+s}
+function getMonthKey(d){const dt=new Date(d);return dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")}
+function getMonthLabel(k){const[y,m]=k.split("-");return MONTHS[parseInt(m)-1]+" "+y}
+function getSubLabel(cat,sub){const list=SUBCATEGORIES[cat]||[];const f=list.find(s=>s.v===sub);return f?f.l:sub||""}
+function esc(s){const d=document.createElement("div");d.textContent=s;return d.innerHTML}
 
 // ─── Storage ───
-const STORE_KEY=“ledger-v2”;
-function loadData(){try{const d=localStorage.getItem(STORE_KEY);return d?JSON.parse(d):{entries:[],openingStock:0}}catch{return{entries:[],openingStock:0}}}
-function saveData(data){try{localStorage.setItem(STORE_KEY,JSON.stringify(data))}catch(e){console.error(e)}}
+const SK="ledger-v2";
+function load(){try{const d=localStorage.getItem(SK);return d?JSON.parse(d):{entries:[],openingStock:0}}catch{return{entries:[],openingStock:0}}}
+function save(){try{localStorage.setItem(SK,JSON.stringify(state))}catch(e){console.error(e)}}
 
 // ─── Compute ───
-function computeAll(entries,openingStock){
-let income=0,bizExp=0,bizPurch=0,persExp=0,cashBal=0,bankBal=0,loans=0,creditors=0,overdraft=0,creditPurchases=0;
-const assetBreakdown={},subBreakdown={};
-entries.forEach(e=>{
-const amt=Number(e.amount),sub=e.subcategory||“other”,cat=e.category;
-if(!subBreakdown[cat])subBreakdown[cat]={};
-subBreakdown[cat][sub]=(subBreakdown[cat][sub]||0)+amt;
-switch(cat){
-case”income”:income+=amt;cashBal+=amt;break;
-case”business_expense”:bizExp+=amt;cashBal-=amt;break;
-case”business_purchase”:bizPurch+=amt;cashBal-=amt;assetBreakdown[sub]=(assetBreakdown[sub]||0)+amt;break;
-case”personal_expense”:persExp+=amt;cashBal-=amt;break;
-case”loan_taken”:loans+=amt;cashBal+=amt;break;
-case”loan_repayment”:loans-=amt;cashBal-=amt;break;
-case”creditor_purchase”:creditors+=amt;creditPurchases+=amt;assetBreakdown[sub]=(assetBreakdown[sub]||0)+amt;break;
-case”creditor_payment”:creditors-=amt;cashBal-=amt;break;
-case”overdraft_taken”:overdraft+=amt;bankBal+=amt;break;
-case”overdraft_repayment”:overdraft-=amt;bankBal-=amt;break;
-case”neutral”:if(e.transferTo===“bank”){cashBal-=amt;bankBal+=amt}else{cashBal+=amt;bankBal-=amt}break;
+function computeAll(){
+  const entries=state.entries, openingStock=state.openingStock;
+  let income=0,bizExp=0,bizPurch=0,persExp=0,cashBal=0,bankBal=0,loans=0,creditors=0,overdraft=0,creditPurchases=0;
+  const assetBreakdown={},subBreakdown={};
+  entries.forEach(e=>{
+    const amt=Number(e.amount),sub=e.subcategory||"other",cat=e.category;
+    if(!subBreakdown[cat])subBreakdown[cat]={};
+    subBreakdown[cat][sub]=(subBreakdown[cat][sub]||0)+amt;
+    switch(cat){
+      case"income":income+=amt;cashBal+=amt;break;
+      case"business_expense":bizExp+=amt;cashBal-=amt;break;
+      case"business_purchase":bizPurch+=amt;cashBal-=amt;assetBreakdown[sub]=(assetBreakdown[sub]||0)+amt;break;
+      case"personal_expense":persExp+=amt;cashBal-=amt;break;
+      case"loan_taken":loans+=amt;cashBal+=amt;break;
+      case"loan_repayment":loans-=amt;cashBal-=amt;break;
+      case"creditor_purchase":creditors+=amt;creditPurchases+=amt;assetBreakdown[sub]=(assetBreakdown[sub]||0)+amt;break;
+      case"creditor_payment":creditors-=amt;cashBal-=amt;break;
+      case"overdraft_taken":overdraft+=amt;bankBal+=amt;break;
+      case"overdraft_repayment":overdraft-=amt;bankBal-=amt;break;
+      case"neutral":if(e.transferTo==="bank"){cashBal-=amt;bankBal+=amt}else{cashBal+=amt;bankBal-=amt}break;
+    }
+  });
+  const tradingDebit=bizExp+bizPurch+creditPurchases,tradingCredit=income+openingStock,grossProfit=tradingCredit-tradingDebit;
+  const plDebit=persExp,plCredit=Math.max(grossProfit,0),netProfit=plCredit-plDebit;
+  const totalAssets=bizPurch+creditPurchases+Math.max(bankBal,0)+Math.max(cashBal,0);
+  const totalLiabilities=openingStock+Math.max(loans,0)+Math.max(creditors,0)+Math.max(overdraft,0);
+  const netWorth=totalAssets-totalLiabilities;
+  return{income,bizExp,bizPurch,persExp,openingStock,creditPurchases,tradingDebit,tradingCredit,grossProfit,plDebit,plCredit,netProfit,cashBal,bankBal,loans:Math.max(loans,0),creditors:Math.max(creditors,0),overdraft:Math.max(overdraft,0),totalAssets,totalLiabilities,netWorth,assetBreakdown,subBreakdown};
 }
+
+// ─── Render Helpers ───
+function accountTableHTML(title,accent,debitItems,creditItems,debitTotal,creditTotal,result,resultLabel){
+  const maxRows=Math.max(debitItems.length,creditItems.length);
+  let rows="";
+  for(let i=0;i<maxRows;i++){
+    rows+=`<tr><td class="td">${debitItems[i]?.label||""}</td><td class="td td-r br">${debitItems[i]?.amount?formatINR(debitItems[i].amount):""}</td><td class="td">${creditItems[i]?.label||""}</td><td class="td td-r">${creditItems[i]?.amount?formatINR(creditItems[i].amount):""}</td></tr>`;
+  }
+  return`<div class="card" style="border-top:3px solid ${accent}">
+    <h3 class="card-title" style="color:${accent}">${title}</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th class="th br" colspan="2">Debit</th><th class="th" colspan="2">Credit</th></tr>
+      <tr><th class="th-sub">Particular</th><th class="th-sub td-r br">Amt</th><th class="th-sub">Particular</th><th class="th-sub td-r">Amt</th></tr></thead>
+      <tbody>${rows}
+      <tr style="border-top:2px solid #334155"><td class="td td-b">Total</td><td class="td td-r td-b br">${formatINR(debitTotal)}</td><td class="td td-b">Total</td><td class="td td-r td-b">${formatINR(creditTotal)}</td></tr>
+      </tbody></table></div>
+    <div class="result-bar" style="background:${accent}18;border-left:3px solid ${accent}">
+      <span style="color:#94a3b8;font-size:13px">${resultLabel}</span>
+      <span class="mono" style="color:${accent};font-weight:800;font-size:22px">${formatINR(result)}</span>
+    </div></div>`;
+}
+
+// ─── Tab Renderers ───
+function renderDashboard(){
+  const a=computeAll();
+  const liquidCash=Math.max(a.cashBal,0)+Math.max(a.bankBal,0);
+
+  // Assets breakdown
+  let assetLines="";
+  Object.entries(a.assetBreakdown).filter(([,v])=>v>0).forEach(([k,v])=>{
+    assetLines+=`<div style="display:flex;justify-content:space-between;font-size:10px;color:#64748b;margin-top:2px"><span>${ASSET_TYPES[k]||k}</span><span class="mono">${formatINR(v)}</span></div>`;
+  });
+
+  // Liabilities breakdown
+  let liabLines="";
+  if(a.openingStock>0)liabLines+=`<div style="display:flex;justify-content:space-between;font-size:10px;color:#64748b;margin-top:2px"><span>Capital</span><span class="mono">${formatINR(a.openingStock)}</span></div>`;
+  if(a.creditors>0)liabLines+=`<div style="display:flex;justify-content:space-between;font-size:10px;color:#64748b;margin-top:2px"><span>Creditors</span><span class="mono">${formatINR(a.creditors)}</span></div>`;
+  if(a.loans>0)liabLines+=`<div style="display:flex;justify-content:space-between;font-size:10px;color:#64748b;margin-top:2px"><span>Loan</span><span class="mono">${formatINR(a.loans)}</span></div>`;
+  if(a.overdraft>0)liabLines+=`<div style="display:flex;justify-content:space-between;font-size:10px;color:#64748b;margin-top:2px"><span>Overdraft</span><span class="mono">${formatINR(a.overdraft)}</span></div>`;
+
+  // Liability tracker
+  const lenders={};
+  state.entries.forEach(e=>{if(!e.lenderName)return;const name=e.lenderName.trim();if(!name)return;if(!lenders[name])lenders[name]={total:0,type:""};
+    if(["loan_taken","creditor_purchase","overdraft_taken"].includes(e.category)){lenders[name].total+=Number(e.amount);lenders[name].type=e.category.includes("loan")?"Loan":e.category.includes("creditor")?"Creditor":"Overdraft"}
+    if(["loan_repayment","creditor_payment","overdraft_repayment"].includes(e.category)){lenders[name].total-=Number(e.amount)}});
+  const active=Object.entries(lenders).filter(([,v])=>v.total>0);
+  let liabTracker="";
+  if(active.length){
+    const td=active.reduce((s,[,v])=>s+v.total,0);
+    let rows=active.map(([name,v])=>`<div class="entry-row"><span class="cat-badge" style="background:#a855f722;color:#a855f7">${v.type}</span><span style="flex:1;color:#cbd5e1;font-size:13px">${esc(name)}</span><span class="mono" style="font-weight:700;color:#f97316;font-size:14px">${formatINR(v.total)}</span></div>`).join("");
+    liabTracker=`<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3 class="card-title" style="margin:0">Outstanding Liabilities</h3><span class="mono" style="font-weight:700;color:#f97316;font-size:14px">${formatINR(td)}</span></div>${rows}</div>`;
+  }
+
+  // Recent entries
+  const recent=[...state.entries].sort((a,b)=>b.createdAt-a.createdAt).slice(0,20);
+  let recentHTML="";
+  if(recent.length){
+    let rows=recent.map(e=>{
+      const cat=CATEGORIES[e.category];const subLabel=getSubLabel(e.category,e.subcategory);
+      return`<div class="entry-row">
+        <span class="cat-badge" style="background:${cat.color}22;color:${cat.color}">${cat.icon} ${cat.label}</span>
+        ${subLabel?`<span class="sub-badge">${esc(subLabel)}</span>`:""}
+        <span style="flex:1;color:#cbd5e1;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(e.description||e.lenderName||"—")}</span>
+        <span class="mono" style="font-weight:700;color:#f1f5f9;font-size:13px">${formatINR(e.amount)}</span>
+        <span style="color:#64748b;font-size:10px">${e.date}</span>
+        <button class="btn-del" onclick="deleteEntry('${e.id}')" title="Delete">×</button>
+      </div>`;
+    }).join("");
+    recentHTML=`<div class="card"><h3 class="card-title">Recent Entries</h3>${rows}</div>`;
+  }
+
+  return`
+    <div class="hero-card">
+      <div style="color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px">Money In Hand Right Now</div>
+      <div class="mono" style="font-weight:800;font-size:32px;color:${liquidCash>=0?"#22c55e":"#ef4444"};line-height:1.2">${formatINR(liquidCash)}</div>
+      <div style="display:flex;gap:16px;margin-top:10px">
+        <div><div style="color:#64748b;font-size:10px">Cash</div><div class="mono" style="font-weight:700;font-size:15px;color:${a.cashBal>=0?"#22c55e":"#ef4444"}">${formatINR(a.cashBal)}</div></div>
+        <div><div style="color:#64748b;font-size:10px">Bank</div><div class="mono" style="font-weight:700;font-size:15px;color:#8b5cf6">${formatINR(a.bankBal)}</div></div>
+      </div>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card" style="border-left:3px solid #06b6d4">
+        <span style="color:#64748b;font-size:10px;text-transform:uppercase;letter-spacing:1px">Total Assets</span>
+        <span class="mono" style="font-weight:800;font-size:18px;color:#06b6d4">${formatINR(a.totalAssets)}</span>
+        ${assetLines}
+      </div>
+      <div class="stat-card" style="border-left:3px solid #f97316">
+        <span style="color:#64748b;font-size:10px;text-transform:uppercase;letter-spacing:1px">Total Liabilities</span>
+        <span class="mono" style="font-weight:800;font-size:18px;color:${a.totalLiabilities>0?"#f97316":"#22c55e"}">${formatINR(a.totalLiabilities)}</span>
+        ${liabLines}
+      </div>
+      <div class="stat-card" style="border-left:3px solid #22c55e">
+        <span style="color:#64748b;font-size:10px;text-transform:uppercase;letter-spacing:1px">Profit</span>
+        <span class="mono" style="font-weight:800;font-size:18px;color:${a.netProfit>=0?"#22c55e":"#ef4444"}">${formatINR(a.netProfit)}</span>
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:#64748b;margin-top:2px"><span>Gross</span><span class="mono">${formatINR(a.grossProfit)}</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:#64748b;margin-top:2px"><span>Net</span><span class="mono">${formatINR(a.netProfit)}</span></div>
+      </div>
+    </div>
+    <div class="net-worth-bar">
+      <span style="color:#94a3b8;font-size:12px;font-weight:600">NET WORTH (Assets − Liabilities)</span>
+      <span class="mono" style="font-weight:800;font-size:22px;color:${a.netWorth>=0?"#06b6d4":"#ef4444"}">${formatINR(a.netWorth)}</span>
+    </div>
+    ${liabTracker}${recentHTML}`;
+}
+
+function renderAddEntry(){
+  const cats=[
+    {group:"Income",items:[{v:"income",l:"↓ Income (Cash In)"}]},
+    {group:"Expenses",items:[{v:"business_expense",l:"↗ Business Expense"},{v:"business_purchase",l:"◆ Business Purchase"},{v:"personal_expense",l:"↑ Personal Expense"}]},
+    {group:"Liabilities",items:[{v:"loan_taken",l:"⬇ Loan Taken"},{v:"loan_repayment",l:"⬆ Loan Repayment"},{v:"creditor_purchase",l:"📋 Purchase on Credit"},{v:"creditor_payment",l:"✓ Creditor Payment"},{v:"overdraft_taken",l:"⚡ Overdraft Used"},{v:"overdraft_repayment",l:"↩ Overdraft Repaid"}]},
+    {group:"Transfer",items:[{v:"neutral",l:"⇄ Neutral (Transfer)"}]}
+  ];
+  let catOptions=cats.map(g=>`<optgroup label="${g.group}">${g.items.map(i=>`<option value="${i.v}">${i.l}</option>`).join("")}</optgroup>`).join("");
+  const today=new Date().toISOString().slice(0,10);
+
+  return`<div class="card"><h3 class="card-title">New Entry</h3>
+    <div class="form-grid" id="entryForm">
+      <div class="field field-full"><label class="lbl">Category</label><select class="sel" id="fCat" onchange="updateFormFields()">${catOptions}</select></div>
+      <div class="field" id="fSubWrap"><label class="lbl">Subcategory</label><select class="sel" id="fSub"></select></div>
+      <div class="field"><label class="lbl">Amount (₹)</label><input class="inp" id="fAmt" type="number" placeholder="0" min="0"></div>
+      <div class="field"><label class="lbl">Date</label><input class="inp" id="fDate" type="date" value="${today}"></div>
+      <div class="field hidden" id="fLenderWrap"><label class="lbl" id="fLenderLabel">Lender Name</label><input class="inp" id="fLender" placeholder="e.g. SBI, Ravi..."></div>
+      <div class="field hidden" id="fTransferWrap"><label class="lbl">Direction</label><select class="sel" id="fTransfer"><option value="bank">Cash → Bank</option><option value="cash">Bank → Cash</option></select></div>
+      <div class="field field-full"><label class="lbl">Description</label><input class="inp" id="fDesc" placeholder="e.g. Guitar strings, Tutor salary..."></div>
+    </div>
+    <button class="btn-main" onclick="addEntry()">Add Entry</button>
+  </div>`;
+}
+
+function renderAccounts(){
+  const a=computeAll();
+  let debitItems=[{label:"Business Expense",amount:a.bizExp},{label:"Business Purchase (Cash)",amount:a.bizPurch}];
+  if(a.creditPurchases>0)debitItems.push({label:"Purchase on Credit",amount:a.creditPurchases});
+
+  const trading=accountTableHTML("Trading Account","#f59e0b",debitItems,[{label:"Business Income",amount:a.income},{label:"Opening Stock",amount:a.openingStock}],a.tradingDebit,a.tradingCredit,a.grossProfit,"Gross Profit (B − A)");
+  const pl=accountTableHTML("Profit & Loss A/C","#ef4444",[{label:"Personal Expense (Cash Out)",amount:a.persExp}],[{label:"From Gross Profit",amount:Math.max(a.grossProfit,0)}],a.plDebit,a.plCredit,a.netProfit,"Net Profit (B − A)");
+
+  // Balance Sheet
+  const liabItems=[];
+  if(a.openingStock>0)liabItems.push({label:"Capital (Opening Stock)",amount:a.openingStock});
+  if(a.creditors>0)liabItems.push({label:"Creditors",amount:a.creditors});
+  if(a.loans>0)liabItems.push({label:"Loan",amount:a.loans});
+  if(a.overdraft>0)liabItems.push({label:"Overdraft Facility",amount:a.overdraft});
+  if(!liabItems.length)liabItems.push({label:"—",amount:0});
+  const assetItems=[];
+  Object.entries(a.assetBreakdown).forEach(([k,v])=>{if(v>0)assetItems.push({label:ASSET_TYPES[k]||k,amount:v})});
+  if(Math.max(a.bankBal,0)>0)assetItems.push({label:"Bank Balance",amount:Math.max(a.bankBal,0)});
+  if(Math.max(a.cashBal,0)>0)assetItems.push({label:"Cash Balance",amount:Math.max(a.cashBal,0)});
+  if(!assetItems.length)assetItems.push({label:"—",amount:0});
+  const bs=accountTableHTML("Balance Sheet","#06b6d4",liabItems,assetItems,a.totalLiabilities,a.totalAssets,a.netWorth,"Net Worth (Assets − Liabilities)");
+
+  // Fix BS headers
+  return trading+pl+bs.replace("Debit","Liabilities").replace("Credit","Assets");
+}
+
+function renderReports(){
+  const a=computeAll();
+  // Monthly
+  const months={};
+  state.entries.forEach(e=>{const mk=getMonthKey(e.date);if(!months[mk])months[mk]={income:0,business_expense:0,business_purchase:0,personal_expense:0};if(months[mk][e.category]!==undefined)months[mk][e.category]+=Number(e.amount)});
+  const sortedKeys=Object.keys(months).sort().reverse();
+  let monthlyHTML="";
+  if(sortedKeys.length){
+    let rows=sortedKeys.map(mk=>{const m=months[mk];const net=m.income-m.business_expense-m.business_purchase-m.personal_expense;
+      return`<tr><td class="td" style="font-weight:600">${getMonthLabel(mk)}</td><td class="td td-r" style="color:#22c55e">${formatINR(m.income)}</td><td class="td td-r" style="color:#f59e0b">${formatINR(m.business_expense)}</td><td class="td td-r" style="color:#3b82f6">${formatINR(m.business_purchase)}</td><td class="td td-r" style="color:#ef4444">${formatINR(m.personal_expense)}</td><td class="td td-r" style="font-weight:700;color:${net>=0?"#22c55e":"#ef4444"}">${formatINR(net)}</td></tr>`;
+    }).join("");
+    monthlyHTML=`<div class="card"><h3 class="card-title">Monthly Breakdown</h3><div class="table-wrap"><table><thead><tr><th class="th-sub">Month</th><th class="th-sub td-r">Income</th><th class="th-sub td-r">Biz Exp</th><th class="th-sub td-r">Biz Purch</th><th class="th-sub td-r">Personal</th><th class="th-sub td-r">Net</th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
+  }
+
+  // Subcategory
+  const cats=["income","business_expense","business_purchase","personal_expense"];
+  let subHTML="";
+  const hasData=cats.some(c=>a.subBreakdown[c]&&Object.keys(a.subBreakdown[c]).length>0);
+  if(hasData){
+    let inner=cats.map(cat=>{
+      const data=a.subBreakdown[cat];if(!data||!Object.keys(data).length)return"";
+      const catInfo=CATEGORIES[cat];const items=Object.entries(data).sort((a,b)=>b[1]-a[1]);const total=items.reduce((s,[,v])=>s+v,0);
+      let bars=items.map(([sub,amt])=>{const pct=total>0?(amt/total)*100:0;
+        return`<div style="margin-bottom:6px"><div style="display:flex;justify-content:space-between;font-size:12px;color:#94a3b8;margin-bottom:2px"><span>${esc(getSubLabel(cat,sub))}</span><span class="mono">${formatINR(amt)}</span></div><div style="height:4px;background:#0f172a;border-radius:2px;overflow:hidden"><div class="bar-fill" style="width:${pct}%;background:${catInfo.color}"></div></div></div>`;
+      }).join("");
+      return`<div style="margin-bottom:16px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><span style="color:${catInfo.color};font-weight:700;font-size:13px">${catInfo.icon} ${catInfo.label}</span><span class="mono" style="color:${catInfo.color};font-weight:700;font-size:13px">${formatINR(total)}</span></div>${bars}</div>`;
+    }).join("");
+    subHTML=`<div class="card"><h3 class="card-title">Category-wise Breakdown</h3>${inner}</div>`;
+  }
+
+  if(!state.entries.length)return`<p style="color:#64748b;text-align:center;padding:40px">No entries yet.</p>`;
+  return monthlyHTML+subHTML;
+}
+
+// ─── Actions ───
+function addEntry(){
+  const cat=document.getElementById("fCat").value;
+  const sub=document.getElementById("fSub")?.value||null;
+  const amount=Number(document.getElementById("fAmt").value);
+  const date=document.getElementById("fDate").value;
+  const desc=document.getElementById("fDesc").value;
+  const lender=document.getElementById("fLender")?.value||null;
+  const transfer=document.getElementById("fTransfer")?.value||"bank";
+  if(!amount||amount<=0)return;
+  const needsLender=["loan_taken","loan_repayment","creditor_purchase","creditor_payment"].includes(cat);
+  state.entries.push({id:genId(),category:cat,subcategory:sub,amount,description:desc,date,transferTo:cat==="neutral"?transfer:null,lenderName:needsLender?lender:null,createdAt:Date.now()});
+  save();currentTab=0;renderApp();
+}
+
+function deleteEntry(id){
+  state.entries=state.entries.filter(e=>e.id!==id);
+  save();renderApp();
+}
+
+function updateFormFields(){
+  const cat=document.getElementById("fCat").value;
+  const subs=SUBCATEGORIES[cat]||[];
+  const subWrap=document.getElementById("fSubWrap");
+  const subSel=document.getElementById("fSub");
+  if(subs.length){subWrap.classList.remove("hidden");subSel.innerHTML=subs.map(s=>`<option value="${s.v}">${s.l}</option>`).join("")}
+  else{subWrap.classList.add("hidden")}
+  const needsLender=["loan_taken","loan_repayment","creditor_purchase","creditor_payment"].includes(cat);
+  document.getElementById("fLenderWrap").classList.toggle("hidden",!needsLender);
+  document.getElementById("fLenderLabel").textContent=cat.includes("creditor")?"Creditor Name":"Lender Name";
+  document.getElementById("fTransferWrap").classList.toggle("hidden",cat!=="neutral");
+}
+
+function exportData(){
+  const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});
+  const url=URL.createObjectURL(blob);const a=document.createElement("a");
+  a.href=url;a.download="ledger-backup-"+new Date().toISOString().slice(0,10)+".json";a.click();URL.revokeObjectURL(url);
+}
+
+function importData(){
+  const input=document.createElement("input");input.type="file";input.accept=".json";
+  input.onchange=e=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();
+    reader.onload=ev=>{try{const imported=JSON.parse(ev.target.result);if(imported.entries){state=imported;save();document.getElementById("stockInput").value=state.openingStock||0;renderApp();alert("Data imported!")}else alert("Invalid file.")}catch{alert("Error reading file.")}};
+    reader.readAsText(file)};input.click();
+}
+
+function resetAll(){
+  if(!confirm("Reset all data? This cannot be undone."))return;
+  state={entries:[],openingStock:0};save();
+  document.getElementById("stockInput").value=0;renderApp();
+}
+
+function switchTab(i){currentTab=i;renderApp()}
+
+// ─── Main Render ───
+function renderApp(){
+  // Tabs
+  const tabBar=document.getElementById("tabBar");
+  tabBar.innerHTML=TABS.map((t,i)=>`<button class="tab-btn ${i===currentTab?"active":""}" onclick="switchTab(${i})">${t}</button>`).join("");
+
+  // Content
+  const content=document.getElementById("tabContent");
+  switch(currentTab){
+    case 0:content.innerHTML=renderDashboard();break;
+    case 1:content.innerHTML=renderAddEntry();setTimeout(updateFormFields,0);break;
+    case 2:content.innerHTML=renderAccounts();break;
+    case 3:content.innerHTML=renderReports();break;
+  }
+}
+
+// ─── Init ───
+state=load();
+document.getElementById("stockInput").value=state.openingStock||0;
+document.getElementById("stockInput").addEventListener("change",function(){
+  state.openingStock=Number(this.value)||0;save();if(currentTab===0||currentTab===2)renderApp();
 });
-const tradingDebit=bizExp+bizPurch+creditPurchases,tradingCredit=income+openingStock,grossProfit=tradingCredit-tradingDebit;
-const plDebit=persExp,plCredit=Math.max(grossProfit,0),netProfit=plCredit-plDebit;
-const totalPurchaseAssets=bizPurch+creditPurchases;
-const totalAssets=totalPurchaseAssets+Math.max(bankBal,0)+Math.max(cashBal,0);
-const totalLiabilities=openingStock+Math.max(loans,0)+Math.max(creditors,0)+Math.max(overdraft,0);
-const netWorth=totalAssets-totalLiabilities;
-return{income,bizExp,bizPurch,persExp,openingStock,creditPurchases,tradingDebit,tradingCredit,grossProfit,plDebit,plCredit,netProfit,cashBal,bankBal,loans:Math.max(loans,0),creditors:Math.max(creditors,0),overdraft:Math.max(overdraft,0),totalPurchaseAssets,totalAssets,totalLiabilities,netWorth,assetBreakdown,subBreakdown};
-}
-
-function computeMonthly(entries){
-const months={};
-entries.forEach(e=>{const mk=getMonthKey(e.date);if(!months[mk])months[mk]={income:0,business_expense:0,business_purchase:0,personal_expense:0};if(months[mk][e.category]!==undefined)months[mk][e.category]+=Number(e.amount)});
-return months;
-}
-
-// ─── Styles ───
-const S={
-container:{minHeight:“100vh”,background:”#0f172a”,color:”#f1f5f9”,fontFamily:”‘DM Sans’,sans-serif”,maxWidth:860,margin:“0 auto”,padding:“0 12px”},
-header:{display:“flex”,justifyContent:“space-between”,alignItems:“center”,padding:“16px 0 10px”,borderBottom:“1px solid #1e293b”,flexWrap:“wrap”,gap:10},
-h1:{margin:0,fontSize:26,fontWeight:800,letterSpacing:-1,background:“linear-gradient(135deg,#06b6d4,#8b5cf6)”,WebkitBackgroundClip:“text”,WebkitTextFillColor:“transparent”},
-tabBar:{display:“flex”,gap:2,padding:“10px 0 0”,borderBottom:“1px solid #1e293b”,overflowX:“auto”},
-tabBtn:{background:“none”,border:“none”,color:”#64748b”,padding:“7px 14px”,cursor:“pointer”,fontSize:13,fontWeight:600,borderBottom:“2px solid transparent”,fontFamily:“inherit”,whiteSpace:“nowrap”,transition:“color 0.15s”},
-tabActive:{color:”#f1f5f9”,borderBottomColor:”#06b6d4”},
-content:{padding:“14px 0 40px”,display:“flex”,flexDirection:“column”,gap:14},
-card:{background:”#1e293b”,borderRadius:10,padding:16},
-cardTitle:{margin:“0 0 12px”,fontSize:15,fontWeight:700,letterSpacing:-0.3},
-statsGrid:{display:“grid”,gridTemplateColumns:“repeat(auto-fit,minmax(120px,1fr))”,gap:8},
-statCard:{background:”#1e293b”,borderRadius:8,padding:“12px 14px”,display:“flex”,flexDirection:“column”,gap:4},
-formGrid:{display:“grid”,gridTemplateColumns:“1fr 1fr”,gap:10},
-field:{display:“flex”,flexDirection:“column”,gap:3},
-label:{fontSize:11,color:”#94a3b8”,fontWeight:600},
-input:{background:”#0f172a”,border:“1px solid #334155”,borderRadius:6,color:”#f1f5f9”,padding:“7px 10px”,fontSize:13,fontFamily:“inherit”,outline:“none”,width:“100%”},
-select:{background:”#0f172a”,border:“1px solid #334155”,borderRadius:6,color:”#f1f5f9”,padding:“7px 10px”,fontSize:13,fontFamily:“inherit”,outline:“none”,width:“100%”},
-btn:{marginTop:12,background:“linear-gradient(135deg,#06b6d4,#8b5cf6)”,border:“none”,borderRadius:6,color:”#fff”,padding:“10px 24px”,fontSize:14,fontWeight:700,cursor:“pointer”,fontFamily:“inherit”,width:“100%”},
-tableWrap:{overflowX:“auto”},
-table:{width:“100%”,borderCollapse:“collapse”,fontSize:12},
-th:{textAlign:“left”,padding:“7px 8px”,background:”#0f172a”,color:”#94a3b8”,fontSize:11,fontWeight:700,textTransform:“uppercase”,letterSpacing:0.5},
-thSub:{textAlign:“left”,padding:“5px 8px”,background:”#0f172a”,color:”#64748b”,fontSize:10,fontWeight:600},
-td:{padding:“7px 8px”,borderBottom:“1px solid rgba(30,41,59,0.13)”,color:”#cbd5e1”},
-resultBar:{marginTop:10,padding:“9px 12px”,borderRadius:6,display:“flex”,justifyContent:“space-between”,alignItems:“center”,flexWrap:“wrap”,gap:6},
-entryRow:{display:“flex”,alignItems:“center”,gap:8,padding:“7px 8px”,background:”#0f172a”,borderRadius:6,flexWrap:“wrap”},
-catBadge:{fontSize:10,fontWeight:700,padding:“2px 6px”,borderRadius:3,whiteSpace:“nowrap”},
-delBtn:{background:“none”,border:“1px solid #334155”,color:”#64748b”,borderRadius:4,cursor:“pointer”,fontSize:14,lineHeight:1,padding:“2px 5px”,fontFamily:“inherit”},
-};
-const mono={fontFamily:”‘JetBrains Mono’,monospace”};
-
-// ─── Components ───
-
-function EntryForm({onAdd}){
-const[cat,setCat]=useState(“income”);
-const[sub,setSub]=useState(“sales”);
-const[amount,setAmount]=useState(””);
-const[desc,setDesc]=useState(””);
-const[date,setDate]=useState(new Date().toISOString().slice(0,10));
-const[transferTo,setTransferTo]=useState(“bank”);
-const[lenderName,setLenderName]=useState(””);
-const subs=SUBCATEGORIES[cat]||[];
-const needsLender=[“loan_taken”,“loan_repayment”,“creditor_purchase”,“creditor_payment”].includes(cat);
-useEffect(()=>{if(subs.length>0)setSub(subs[0].value);else setSub(””)},[cat]);
-const handle=()=>{
-if(!amount||isNaN(amount)||Number(amount)<=0)return;
-onAdd({id:genId(),category:cat,subcategory:sub||null,amount:Number(amount),description:desc,date,transferTo:cat===“neutral”?transferTo:null,lenderName:needsLender?lenderName:null,createdAt:Date.now()});
-setAmount(””);setDesc(””);setLenderName(””);
-};
-return html` <div style=${S.card}> <h3 style=${S.cardTitle}>New Entry</h3> <div class="form-grid" style=${S.formGrid}> <div style=${{...S.field,gridColumn:"1 / -1"}}> <label style=${S.label}>Category</label> <select value=${cat} onChange=${e=>setCat(e.target.value)} style=${S.select}> <optgroup label="Income"><option value="income">↓ Income (Cash In)</option></optgroup> <optgroup label="Expenses"> <option value="business_expense">↗ Business Expense</option> <option value="business_purchase">◆ Business Purchase</option> <option value="personal_expense">↑ Personal Expense</option> </optgroup> <optgroup label="Liabilities"> <option value="loan_taken">⬇ Loan Taken</option> <option value="loan_repayment">⬆ Loan Repayment</option> <option value="creditor_purchase">📋 Purchase on Credit</option> <option value="creditor_payment">✓ Creditor Payment</option> <option value="overdraft_taken">⚡ Overdraft Used</option> <option value="overdraft_repayment">↩ Overdraft Repaid</option> </optgroup> <optgroup label="Transfer"><option value="neutral">⇄ Neutral (Transfer)</option></optgroup> </select> </div> ${subs.length>0&&html`<div style=${S.field}><label style=${S.label}>Subcategory</label><select value=${sub} onChange=${e=>setSub(e.target.value)} style=${S.select}>${subs.map(s=>html`<option key=${s.value} value=${s.value}>${s.label}</option>`)}</select></div>`} <div style=${S.field}><label style=${S.label}>Amount (₹)</label><input type="number" value=${amount} onInput=${e=>setAmount(e.target.value)} placeholder="0" style=${S.input} min="0"/></div> <div style=${S.field}><label style=${S.label}>Date</label><input type="date" value=${date} onInput=${e=>setDate(e.target.value)} style=${S.input}/></div> ${needsLender&&html`<div style=${S.field}><label style=${S.label}>${cat.includes(“creditor”)?“Creditor Name”:“Lender Name”}</label><input value=${lenderName} onInput=${e=>setLenderName(e.target.value)} placeholder=“e.g. SBI, Ravi…” style=${S.input}/></div>`} ${cat==="neutral"&&html`<div style=${S.field}><label style=${S.label}>Direction</label><select value=${transferTo} onChange=${e=>setTransferTo(e.target.value)} style=${S.select}><option value="bank">Cash → Bank</option><option value="cash">Bank → Cash</option></select></div>`} <div style=${{...S.field,gridColumn:"1 / -1"}}><label style=${S.label}>Description</label><input value=${desc} onInput=${e=>setDesc(e.target.value)} placeholder="e.g. Guitar strings, Tutor salary..." style=${S.input}/></div> </div> <button onClick=${handle} style=${S.btn}>Add Entry</button> </div>`;
-}
-
-function AccountTable({title,debitItems,creditItems,debitTotal,creditTotal,result,resultLabel,accent}){
-const maxRows=Math.max(debitItems.length,creditItems.length);
-return html` <div style=${{...S.card,borderTop:"3px solid "+accent}}> <h3 style=${{...S.cardTitle,color:accent}}>${title}</h3> <div style=${S.tableWrap}><table style=${S.table}><thead> <tr><th style=${{...S.th,borderRight:"1px solid #334155"}} colSpan=${2}>Debit</th><th style=${S.th} colSpan=${2}>Credit</th></tr> <tr><th style=${S.thSub}>Particular</th><th style=${{...S.thSub,borderRight:"1px solid #334155",textAlign:"right"}}>Amt</th><th style=${S.thSub}>Particular</th><th style=${{...S.thSub,textAlign:"right"}}>Amt</th></tr> </thead><tbody> ${Array.from({length:maxRows}).map((_,i)=>html`<tr key=${i}>
-<td style=${S.td}>${debitItems[i]?.label||””}</td>
-<td style=${{…S.td,textAlign:“right”,borderRight:“1px solid #1e293b”}}>${debitItems[i]?.amount?formatINR(debitItems[i].amount):””}</td>
-<td style=${S.td}>${creditItems[i]?.label||””}</td>
-<td style=${{…S.td,textAlign:“right”}}>${creditItems[i]?.amount?formatINR(creditItems[i].amount):””}</td>
-</tr>`)} <tr style=${{borderTop:"2px solid #334155"}}> <td style=${{...S.td,fontWeight:700}}>Total</td><td style=${{...S.td,textAlign:"right",fontWeight:700,borderRight:"1px solid #1e293b"}}>${formatINR(debitTotal)}</td> <td style=${{...S.td,fontWeight:700}}>Total</td><td style=${{...S.td,textAlign:"right",fontWeight:700}}>${formatINR(creditTotal)}</td> </tr> </tbody></table></div> <div style=${{...S.resultBar,background:accent+"18",borderLeft:"3px solid "+accent}}> <span style=${{color:"#94a3b8",fontSize:13}}>${resultLabel}</span> <span style=${{color:accent,fontWeight:800,fontSize:22,...mono}}>${formatINR(result)}</span> </div> </div>`;
-}
-
-function BalanceSheet({a}){
-const liabItems=[];
-if(a.openingStock>0)liabItems.push({label:“Capital (Opening Stock)”,amount:a.openingStock});
-if(a.creditors>0)liabItems.push({label:“Creditors”,amount:a.creditors});
-if(a.loans>0)liabItems.push({label:“Loan”,amount:a.loans});
-if(a.overdraft>0)liabItems.push({label:“Overdraft Facility”,amount:a.overdraft});
-if(!liabItems.length)liabItems.push({label:”—”,amount:0});
-const assetItems=[];
-Object.entries(a.assetBreakdown).forEach(([k,v])=>{if(v>0)assetItems.push({label:ASSET_TYPES[k]||k,amount:v})});
-if(Math.max(a.bankBal,0)>0)assetItems.push({label:“Bank Balance”,amount:Math.max(a.bankBal,0)});
-if(Math.max(a.cashBal,0)>0)assetItems.push({label:“Cash Balance”,amount:Math.max(a.cashBal,0)});
-if(!assetItems.length)assetItems.push({label:”—”,amount:0});
-const maxRows=Math.max(liabItems.length,assetItems.length);
-return html` <div style=${{...S.card,borderTop:"3px solid #06b6d4"}}> <h3 style=${{...S.cardTitle,color:"#06b6d4"}}>Balance Sheet</h3> <div style=${S.tableWrap}><table style=${S.table}><thead> <tr><th style=${{...S.th,borderRight:"1px solid #334155"}} colSpan=${2}>Liabilities</th><th style=${S.th} colSpan=${2}>Assets</th></tr> </thead><tbody> ${Array.from({length:maxRows}).map((_,i)=>html`<tr key=${i}>
-<td style=${S.td}>${liabItems[i]?.label||””}</td><td style=${{…S.td,textAlign:“right”,borderRight:“1px solid #1e293b”}}>${liabItems[i]?.amount?formatINR(liabItems[i].amount):””}</td>
-<td style=${S.td}>${assetItems[i]?.label||””}</td><td style=${{…S.td,textAlign:“right”}}>${assetItems[i]?.amount?formatINR(assetItems[i].amount):””}</td>
-</tr>`)} <tr style=${{borderTop:"2px solid #334155"}}> <td style=${{...S.td,fontWeight:700}}>Total</td><td style=${{...S.td,textAlign:"right",fontWeight:700,borderRight:"1px solid #1e293b"}}>${formatINR(a.totalLiabilities)}</td> <td style=${{...S.td,fontWeight:700}}>Total</td><td style=${{...S.td,textAlign:"right",fontWeight:700}}>${formatINR(a.totalAssets)}</td> </tr> </tbody></table></div> <div style=${{...S.resultBar,background:"#06b6d418",borderLeft:"3px solid #06b6d4"}}> <span style=${{color:"#94a3b8",fontSize:13}}>Net Worth (Assets − Liabilities)</span> <span style=${{color:"#06b6d4",fontWeight:800,fontSize:22,...mono}}>${formatINR(a.netWorth)}</span> </div> </div>`;
-}
-
-function PositionNow({a}){
-const liquidCash=Math.max(a.cashBal,0)+Math.max(a.bankBal,0);
-const totalDebt=a.totalLiabilities;
-return html` <div style=${{display:"flex",flexDirection:"column",gap:10}}> <div style=${{...S.card,background:"linear-gradient(135deg,#0f172a 0%,#1e293b 100%)",border:"1px solid #334155"}}> <div style=${{color:"#64748b",fontSize:11,textTransform:"uppercase",letterSpacing:1.5,marginBottom:4}}>Money In Hand Right Now</div> <div style=${{...mono,fontWeight:800,fontSize:32,color:liquidCash>=0?"#22c55e":"#ef4444",lineHeight:1.2}}>${formatINR(liquidCash)}</div> <div style=${{display:"flex",gap:16,marginTop:10}}> <div><div style=${{color:"#64748b",fontSize:10}}>Cash</div><div style=${{...mono,fontWeight:700,fontSize:15,color:a.cashBal>=0?"#22c55e":"#ef4444"}}>${formatINR(a.cashBal)}</div></div> <div><div style=${{color:"#64748b",fontSize:10}}>Bank</div><div style=${{...mono,fontWeight:700,fontSize:15,color:"#8b5cf6"}}>${formatINR(a.bankBal)}</div></div> </div> </div> <div class="stats-grid" style=${S.statsGrid}> <div style=${{...S.statCard,borderLeft:"3px solid #06b6d4"}}> <span style=${{color:"#64748b",fontSize:10,textTransform:"uppercase",letterSpacing:1}}>Total Assets</span> <span style=${{...mono,fontWeight:800,fontSize:18,color:"#06b6d4"}}>${formatINR(a.totalAssets)}</span> ${Object.entries(a.assetBreakdown).filter(([,v])=>v>0).map(([k,v])=>html`<div key=${k} style=${{display:“flex”,justifyContent:“space-between”,fontSize:10,color:”#64748b”,marginTop:2}}><span>${ASSET_TYPES[k]||k}</span><span style=${mono}>${formatINR(v)}</span></div>`)} </div> <div style=${{...S.statCard,borderLeft:"3px solid #f97316"}}> <span style=${{color:"#64748b",fontSize:10,textTransform:"uppercase",letterSpacing:1}}>Total Liabilities</span> <span style=${{...mono,fontWeight:800,fontSize:18,color:totalDebt>0?"#f97316":"#22c55e"}}>${formatINR(totalDebt)}</span> ${a.openingStock>0&&html`<div style=${{display:“flex”,justifyContent:“space-between”,fontSize:10,color:”#64748b”,marginTop:2}}><span>Capital</span><span style=${mono}>${formatINR(a.openingStock)}</span></div>`} ${a.creditors>0&&html`<div style=${{display:“flex”,justifyContent:“space-between”,fontSize:10,color:”#64748b”,marginTop:2}}><span>Creditors</span><span style=${mono}>${formatINR(a.creditors)}</span></div>`} ${a.loans>0&&html`<div style=${{display:“flex”,justifyContent:“space-between”,fontSize:10,color:”#64748b”,marginTop:2}}><span>Loan</span><span style=${mono}>${formatINR(a.loans)}</span></div>`} ${a.overdraft>0&&html`<div style=${{display:“flex”,justifyContent:“space-between”,fontSize:10,color:”#64748b”,marginTop:2}}><span>Overdraft</span><span style=${mono}>${formatINR(a.overdraft)}</span></div>`} </div> <div style=${{...S.statCard,borderLeft:"3px solid #22c55e"}}> <span style=${{color:"#64748b",fontSize:10,textTransform:"uppercase",letterSpacing:1}}>Profit</span> <span style=${{...mono,fontWeight:800,fontSize:18,color:a.netProfit>=0?"#22c55e":"#ef4444"}}>${formatINR(a.netProfit)}</span> <div style=${{display:"flex",justifyContent:"space-between",fontSize:10,color:"#64748b",marginTop:2}}><span>Gross</span><span style=${mono}>${formatINR(a.grossProfit)}</span></div> <div style=${{display:"flex",justifyContent:"space-between",fontSize:10,color:"#64748b",marginTop:2}}><span>Net</span><span style=${mono}>${formatINR(a.netProfit)}</span></div> </div> </div> <div style=${{...S.card,background:"#06b6d410",border:"1px solid #06b6d433",display:"flex",justifyContent:"space-between",alignItems:"center",padding:"12px 16px"}}> <span style=${{color:"#94a3b8",fontSize:12,fontWeight:600}}>NET WORTH (Assets − Liabilities)</span> <span style=${{...mono,fontWeight:800,fontSize:22,color:a.netWorth>=0?"#06b6d4":"#ef4444"}}>${formatINR(a.netWorth)}</span> </div> </div>`;
-}
-
-function MonthlyReport({entries}){
-const monthly=computeMonthly(entries);
-const sortedKeys=Object.keys(monthly).sort().reverse();
-if(!sortedKeys.length)return null;
-return html` <div style=${S.card}><h3 style=${S.cardTitle}>Monthly Breakdown</h3> <div style=${S.tableWrap}><table style=${S.table}><thead><tr> <th style=${S.thSub}>Month</th><th style=${{...S.thSub,textAlign:"right"}}>Income</th><th style=${{...S.thSub,textAlign:"right"}}>Biz Exp</th><th style=${{...S.thSub,textAlign:"right"}}>Biz Purch</th><th style=${{...S.thSub,textAlign:"right"}}>Personal</th><th style=${{...S.thSub,textAlign:"right"}}>Net</th> </tr></thead><tbody> ${sortedKeys.map(mk=>{const m=monthly[mk];const net=m.income-m.business_expense-m.business_purchase-m.personal_expense;return html`
-<tr key=${mk}><td style=${{...S.td,fontWeight:600}}>${getMonthLabel(mk)}</td>
-<td style=${{…S.td,textAlign:“right”,color:”#22c55e”}}>${formatINR(m.income)}</td>
-<td style=${{…S.td,textAlign:“right”,color:”#f59e0b”}}>${formatINR(m.business_expense)}</td>
-<td style=${{…S.td,textAlign:“right”,color:”#3b82f6”}}>${formatINR(m.business_purchase)}</td>
-<td style=${{…S.td,textAlign:“right”,color:”#ef4444”}}>${formatINR(m.personal_expense)}</td>
-<td style=${{…S.td,textAlign:“right”,fontWeight:700,color:net>=0?”#22c55e”:”#ef4444”}}>${formatINR(net)}</td></tr>`})} </tbody></table></div></div>`;
-}
-
-function SubcategoryReport({a}){
-const cats=[“income”,“business_expense”,“business_purchase”,“personal_expense”];
-const hasData=cats.some(c=>a.subBreakdown[c]&&Object.keys(a.subBreakdown[c]).length>0);
-if(!hasData)return null;
-const getSubLabel=(cat,sub)=>{const list=SUBCATEGORIES[cat]||[];const f=list.find(s=>s.value===sub);return f?f.label:sub};
-return html` <div style=${S.card}><h3 style=${S.cardTitle}>Category-wise Breakdown</h3> ${cats.map(cat=>{ const data=a.subBreakdown[cat];if(!data||!Object.keys(data).length)return null; const catInfo=CATEGORIES[cat];const items=Object.entries(data).sort((a,b)=>b[1]-a[1]);const total=items.reduce((s,[,v])=>s+v,0); return html`<div key=${cat} style=${{marginBottom:16}}>
-<div style=${{display:“flex”,justifyContent:“space-between”,alignItems:“center”,marginBottom:8}}>
-<span style=${{color:catInfo.color,fontWeight:700,fontSize:13}}>${catInfo.icon} ${catInfo.label}</span>
-<span style=${{color:catInfo.color,...mono,fontWeight:700,fontSize:13}}>${formatINR(total)}</span>
-</div>
-${items.map(([sub,amt])=>{const pct=total>0?(amt/total)*100:0;return html` <div key=${sub} style=${{marginBottom:6}}> <div style=${{display:"flex",justifyContent:"space-between",fontSize:12,color:"#94a3b8",marginBottom:2}}><span>${getSubLabel(cat,sub)}</span><span style=${mono}>${formatINR(amt)}</span></div> <div style=${{height:4,background:"#0f172a",borderRadius:2,overflow:"hidden"}}><div style=${{height:"100%",width:pct+"%",background:catInfo.color,borderRadius:2,transition:"width 0.3s"}}/></div> </div>`})}
-</div>`})} </div>`;
-}
-
-function LiabilityTracker({entries}){
-const lenders={};
-entries.forEach(e=>{if(!e.lenderName)return;const name=e.lenderName.trim();if(!name)return;if(!lenders[name])lenders[name]={total:0,type:””};
-if([“loan_taken”,“creditor_purchase”,“overdraft_taken”].includes(e.category)){lenders[name].total+=Number(e.amount);lenders[name].type=e.category.includes(“loan”)?“Loan”:e.category.includes(“creditor”)?“Creditor”:“Overdraft”}
-if([“loan_repayment”,“creditor_payment”,“overdraft_repayment”].includes(e.category)){lenders[name].total-=Number(e.amount)}});
-const active=Object.entries(lenders).filter(([,v])=>v.total>0);
-if(!active.length)return null;
-const totalDebt=active.reduce((s,[,v])=>s+v.total,0);
-return html` <div style=${S.card}> <div style=${{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}> <h3 style=${{...S.cardTitle,margin:0}}>Outstanding Liabilities</h3> <span style=${{...mono,fontWeight:700,color:"#f97316",fontSize:14}}>${formatINR(totalDebt)}</span> </div> ${active.map(([name,v])=>html`<div key=${name} style=${{...S.entryRow,marginBottom:4}}>
-<span style=${{…S.catBadge,background:”#a855f722”,color:”#a855f7”}}>${v.type}</span>
-<span style=${{flex:1,color:”#cbd5e1”,fontSize:13}}>${name}</span>
-<span style=${{…mono,fontWeight:700,color:”#f97316”,fontSize:14}}>${formatINR(v.total)}</span>
-</div>`)} </div>`;
-}
-
-function RecentEntries({entries,onDelete}){
-const recent=[…entries].sort((a,b)=>b.createdAt-a.createdAt).slice(0,20);
-if(!recent.length)return null;
-const getSubLabel=(cat,sub)=>{const list=SUBCATEGORIES[cat]||[];const f=list.find(s=>s.value===sub);return f?f.label:””};
-return html` <div style=${S.card}><h3 style=${S.cardTitle}>Recent Entries</h3> <div style=${{display:"flex",flexDirection:"column",gap:6}}> ${recent.map(e=>{const cat=CATEGORIES[e.category];const subLabel=getSubLabel(e.category,e.subcategory);return html`
-<div key=${e.id} class="entry-row" style=${S.entryRow}>
-<span style=${{…S.catBadge,background:cat.color+“22”,color:cat.color}}>${cat.icon} ${cat.label}</span>
-${subLabel&&html`<span style=${{fontSize:10,color:"#64748b",background:"#0f172a",padding:"1px 5px",borderRadius:3}}>${subLabel}</span>`}
-<span style=${{flex:1,color:”#cbd5e1”,fontSize:12,overflow:“hidden”,textOverflow:“ellipsis”,whiteSpace:“nowrap”}}>${e.description||e.lenderName||”—”}</span>
-<span style=${{…mono,fontWeight:700,color:”#f1f5f9”,fontSize:13}}>${formatINR(e.amount)}</span>
-<span style=${{color:”#64748b”,fontSize:10}}>${e.date}</span>
-<button onClick=${()=>onDelete(e.id)} style=${S.delBtn} title=“Delete”>×</button>
-</div>`})} </div></div>`;
-}
-
-// ─── Main ───
-const TABS=[“Dashboard”,“Add Entry”,“Accounts”,“Reports”];
-
-function App(){
-const[data,setData]=useState(loadData);
-const[tab,setTab]=useState(0);
-const[stockInput,setStockInput]=useState(String(data.openingStock||0));
-const entries=data.entries||[];
-const openingStock=data.openingStock||0;
-
-const update=useCallback((newEntries,newStock)=>{const d={entries:newEntries,openingStock:newStock};setData(d);saveData(d)},[]);
-const addEntry=useCallback(entry=>{update([…entries,entry],openingStock);setTab(0)},[entries,openingStock,update]);
-const deleteEntry=useCallback(id=>{update(entries.filter(e=>e.id!==id),openingStock)},[entries,openingStock,update]);
-const updateStock=useCallback(()=>{update(entries,Number(stockInput)||0)},[stockInput,entries,update]);
-const resetAll=useCallback(()=>{if(!confirm(“Reset all data? This cannot be undone.”))return;const d={entries:[],openingStock:0};setData(d);saveData(d);setStockInput(“0”)},[]);
-const exportData=useCallback(()=>{const blob=new Blob([JSON.stringify(data,null,2)],{type:“application/json”});const url=URL.createObjectURL(blob);const a=document.createElement(“a”);a.href=url;a.download=“ledger-backup-”+new Date().toISOString().slice(0,10)+”.json”;a.click();URL.revokeObjectURL(url)},[data]);
-const importData=useCallback(()=>{const input=document.createElement(“input”);input.type=“file”;input.accept=”.json”;input.onchange=e=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=ev=>{try{const imported=JSON.parse(ev.target.result);if(imported.entries){setData(imported);saveData(imported);setStockInput(String(imported.openingStock||0));alert(“Data imported!”)}else alert(“Invalid file.”)}catch{alert(“Error reading file.”)}};reader.readAsText(file)};input.click()},[]);
-
-const a=useMemo(()=>computeAll(entries,openingStock),[entries,openingStock]);
-
-return html` <div style=${S.container}> <header style=${S.header}> <div> <h1 style=${S.h1}>Ledger</h1> <p style=${{color:"#64748b",fontSize:12,margin:0}}>Business accounting</p> </div> <div style=${{display:"flex",alignItems:"center",gap:6,flexWrap:"wrap"}}> <div style=${{display:"flex",alignItems:"center",gap:4}}> <label style=${{color:"#64748b",fontSize:10}}>Opening Stock</label> <input value=${stockInput} onInput=${e=>setStockInput(e.target.value)} onBlur=${updateStock} style=${{...S.input,width:80,padding:"3px 6px",fontSize:12}}/> </div> <button onClick=${exportData} style=${{...S.delBtn,fontSize:10,padding:"3px 6px"}} title="Export backup">↓ Export</button> <button onClick=${importData} style=${{...S.delBtn,fontSize:10,padding:"3px 6px"}} title="Import backup">↑ Import</button> <button onClick=${resetAll} style=${{...S.delBtn,fontSize:10,padding:"3px 6px",borderColor:"#ef444444",color:"#ef4444"}} title="Reset all">Reset</button> </div> </header> <nav style=${S.tabBar}> ${TABS.map((t,i)=>html`<button key=${t} onClick=${()=>setTab(i)} style=${{…S.tabBtn,…(tab===i?S.tabActive:{})}}>${t}</button>`)} </nav> ${tab===0&&html`<div style=${S.content}><${PositionNow} a=${a}/><${LiabilityTracker} entries=${entries}/><${RecentEntries} entries=${entries} onDelete=${deleteEntry}/></div>`} ${tab===1&&html`<div style=${S.content}><${EntryForm} onAdd=${addEntry}/></div>`} ${tab===2&&html`<div style=${S.content}>
-<${AccountTable} title=“Trading Account” accent=”#f59e0b”
-debitItems=${[{label:“Business Expense”,amount:a.bizExp},{label:“Business Purchase (Cash)”,amount:a.bizPurch},…(a.creditPurchases>0?[{label:“Purchase on Credit”,amount:a.creditPurchases}]:[])]}
-creditItems=${[{label:“Business Income”,amount:a.income},{label:“Opening Stock”,amount:a.openingStock}]}
-debitTotal=${a.tradingDebit} creditTotal=${a.tradingCredit} result=${a.grossProfit} resultLabel=“Gross Profit (B − A)”/>
-<${AccountTable} title=“Profit & Loss A/C” accent=”#ef4444”
-debitItems=${[{label:“Personal Expense (Cash Out)”,amount:a.persExp}]}
-creditItems=${[{label:“From Gross Profit”,amount:Math.max(a.grossProfit,0)}]}
-debitTotal=${a.plDebit} creditTotal=${a.plCredit} result=${a.netProfit} resultLabel=“Net Profit (B − A)”/>
-<${BalanceSheet} a=${a}/>
-</div>`} ${tab===3&&html`<div style=${S.content}>
-<${MonthlyReport} entries=${entries}/>
-<${SubcategoryReport} a=${a}/>
-${!entries.length&&html`<p style=${{color:"#64748b",textAlign:"center",padding:40}}>No entries yet.</p>`}
-</div>`} </div>`;
-}
-
-render(html`<${App}/>`,document.getElementById(“root”));
+renderApp();
 </script>
 
 </body>
