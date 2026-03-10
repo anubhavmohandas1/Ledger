@@ -5,434 +5,449 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Ledger - Business Accounting</title>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=DM+Sans:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Noto+Sans+Gujarati:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0f172a;font-family:'DM Sans',sans-serif;color:#f1f5f9;-webkit-font-smoothing:antialiased}
+html,body{overflow-x:hidden}
+body{background:#0a0f1a;font-family:'DM Sans','Noto Sans Devanagari','Noto Sans Gujarati',sans-serif;color:#e2e8f0;-webkit-font-smoothing:antialiased}
 ::-webkit-scrollbar{width:6px;height:6px}
-::-webkit-scrollbar-track{background:#0f172a}
-::-webkit-scrollbar-thumb{background:#334155;border-radius:3px}
-select option{background:#0f172a;color:#f1f5f9}
-optgroup{background:#0f172a;color:#94a3b8}
+::-webkit-scrollbar-track{background:#0a0f1a}
+::-webkit-scrollbar-thumb{background:#475569;border-radius:3px}
+select option{background:#111827;color:#e2e8f0}
+optgroup{background:#111827;color:#94a3b8}
 input[type=number]::-webkit-inner-spin-button{opacity:.3}
-
-.container{min-height:100vh;max-width:860px;margin:0 auto;padding:0 12px}
-.header{display:flex;justify-content:space-between;align-items:center;padding:16px 0 10px;border-bottom:1px solid #1e293b;flex-wrap:wrap;gap:10px}
+.container{min-height:100vh;max-width:860px;width:100%;margin:0 auto;padding:0 16px;overflow-x:hidden}
+.header{display:flex;justify-content:space-between;align-items:center;padding:16px 0 10px;border-bottom:1px solid #1e293b;flex-wrap:wrap;gap:10px;max-width:100%}
 .logo{font-size:26px;font-weight:800;letter-spacing:-1px;background:linear-gradient(135deg,#06b6d4,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.header-right{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-
-.tab-bar{display:flex;gap:2px;padding:10px 0 0;border-bottom:1px solid #1e293b;overflow-x:auto}
-.tab-btn{background:none;border:none;color:#64748b;padding:7px 14px;cursor:pointer;font-size:13px;font-weight:600;border-bottom:2px solid transparent;font-family:inherit;white-space:nowrap;transition:color .15s}
-.tab-btn.active{color:#f1f5f9;border-bottom-color:#06b6d4}
-
-.content{padding:14px 0 40px;display:flex;flex-direction:column;gap:14px}
-.card{background:#1e293b;border-radius:10px;padding:16px}
-.card-title{margin:0 0 12px;font-size:15px;font-weight:700;letter-spacing:-0.3px}
-
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}
-.stat-card{background:#1e293b;border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:4px}
-
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.field{display:flex;flex-direction:column;gap:3px}
+.header-right{display:flex;align-items:center;gap:6px;flex-wrap:wrap;max-width:100%}
+.tab-bar{display:flex;gap:4px;padding:10px 0 0;border-bottom:1px solid #1e293b;overflow-x:auto}
+.tab-btn{background:none;border:none;color:#94a3b8;padding:8px 16px;cursor:pointer;font-size:13px;font-weight:600;border-bottom:2px solid transparent;border-radius:6px 6px 0 0;font-family:inherit;white-space:nowrap;transition:all .2s}
+.tab-btn.active{color:#06b6d4;border-bottom-color:#06b6d4;background:rgba(6,182,212,0.08)}
+.content{padding:14px 0 40px;display:flex;flex-direction:column;gap:14px;max-width:100%;overflow-x:hidden}
+.card{background:#151d2e;border:1px solid #1e293b;border-radius:10px;padding:16px;overflow:hidden;max-width:100%}
+.card-title{margin:0 0 12px;font-size:15px;font-weight:700;letter-spacing:-0.3px;color:#f1f5f9}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;max-width:100%}
+.stat-card{background:#151d2e;border:1px solid #1e293b;border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;overflow:hidden}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:100%}
+.field{display:flex;flex-direction:column;gap:3px;min-width:0;overflow:hidden}
 .field-full{grid-column:1/-1}
-.lbl{font-size:11px;color:#94a3b8;font-weight:600}
-.inp,.sel{background:#0f172a;border:1px solid #334155;border-radius:6px;color:#f1f5f9;padding:7px 10px;font-size:13px;font-family:inherit;outline:none;width:100%}
+.lbl{font-size:11px;color:#e2e8f0;font-weight:600}
+.inp,.sel{background:#111827;border:1px solid #475569;border-radius:6px;color:#f8fafc;padding:7px 10px;font-size:13px;font-family:inherit;outline:none;width:100%;min-width:0;max-width:100%;box-sizing:border-box}
+.inp:focus,.sel:focus{border-color:#06b6d4}
+input[type="date"]{-webkit-appearance:none;appearance:none}
 .btn-main{margin-top:12px;background:linear-gradient(135deg,#06b6d4,#8b5cf6);border:none;border-radius:6px;color:#fff;padding:10px 24px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;width:100%}
-.btn-sm{background:none;border:1px solid #334155;color:#64748b;border-radius:4px;cursor:pointer;font-size:10px;line-height:1;padding:3px 6px;font-family:inherit}
-.btn-sm.danger{border-color:#ef444444;color:#ef4444}
-.btn-del{background:none;border:1px solid #334155;color:#64748b;border-radius:4px;cursor:pointer;font-size:14px;line-height:1;padding:2px 5px;font-family:inherit}
-
-.table-wrap{overflow-x:auto}
+.btn-sm{background:none;border:1px solid #475569;color:#cbd5e1;border-radius:4px;cursor:pointer;font-size:10px;line-height:1;padding:3px 6px;font-family:inherit}
+.btn-sm.danger{border-color:#ef444466;color:#ef4444}
+.btn-del{background:none;border:1px solid #475569;color:#cbd5e1;border-radius:4px;cursor:pointer;font-size:14px;line-height:1;padding:2px 5px;font-family:inherit}
+.lang-sel{background:#111827;border:1px solid #475569;border-radius:4px;color:#e2e8f0;padding:2px 4px;font-size:11px;font-family:inherit;outline:none;cursor:pointer}
+.table-wrap{overflow-x:auto;max-width:100%}
 table{width:100%;border-collapse:collapse;font-size:12px}
-.th{text-align:left;padding:7px 8px;background:#0f172a;color:#94a3b8;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
-.th-sub{text-align:left;padding:5px 8px;background:#0f172a;color:#64748b;font-size:10px;font-weight:600}
-.td{padding:7px 8px;border-bottom:1px solid rgba(30,41,59,.13);color:#cbd5e1}
+.th{text-align:left;padding:7px 8px;background:#111827;color:#94a3b8;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.th-sub{text-align:left;padding:5px 8px;background:#111827;color:#94a3b8;font-size:10px;font-weight:600}
+.td{padding:7px 8px;border-bottom:1px solid rgba(30,41,59,.25);color:#cbd5e1}
 .td-r{text-align:right}
-.td-b{font-weight:700}
+.td-b{font-weight:700;color:#f1f5f9}
 .br{border-right:1px solid #1e293b}
-
 .result-bar{margin-top:10px;padding:9px 12px;border-radius:6px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
-
-.entry-row{display:flex;align-items:center;gap:8px;padding:7px 8px;background:#0f172a;border-radius:6px;flex-wrap:wrap;margin-bottom:4px}
+.entry-row{display:flex;align-items:center;gap:8px;padding:7px 8px;background:#111827;border:1px solid #1e293b;border-radius:6px;flex-wrap:wrap;margin-bottom:4px;max-width:100%;overflow:hidden}
 .cat-badge{font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;white-space:nowrap}
-.sub-badge{font-size:10px;color:#64748b;background:#0f172a;padding:1px 5px;border-radius:3px}
-
-.mono{font-family:‘JetBrains Mono’,monospace}
-.hero-card{background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:10px;padding:16px}
-.net-worth-bar{background:rgba(6,182,212,.06);border:1px solid rgba(6,182,212,.2);border-radius:10px;display:flex;justify-content:space-between;align-items:center;padding:12px 16px}
+.sub-badge{font-size:10px;color:#cbd5e1;background:#1e293b;padding:1px 5px;border-radius:3px}
+.mono{font-family:'JetBrains Mono',monospace}
+.hero-card{background:linear-gradient(135deg,#111827 0%,#1a2332 100%);border:1px solid #2d3a4d;border-radius:10px;padding:16px;max-width:100%;overflow:hidden}
+.net-worth-bar{background:rgba(6,182,212,.08);border:1px solid rgba(6,182,212,.25);border-radius:10px;display:flex;justify-content:space-between;align-items:center;padding:12px 16px;max-width:100%;overflow:hidden}
 .bar-fill{height:4px;border-radius:2px;transition:width .3s}
-
 .hidden{display:none}
 @media(max-width:500px){.form-grid{grid-template-columns:1fr!important}.stats-grid{grid-template-columns:repeat(2,1fr)!important}}
 </style>
-
 </head>
 <body>
 <div class="container" id="app">
-  <!-- Header -->
   <header class="header">
     <div>
       <h1 class="logo">Ledger</h1>
-      <p style="color:#64748b;font-size:12px">Business accounting</p>
+      <p id="hdrSub" style="color:#94a3b8;font-size:12px"></p>
     </div>
     <div class="header-right">
-      <label style="color:#64748b;font-size:10px">Opening Stock</label>
-      <input id="stockInput" class="inp" style="width:80px;padding:3px 6px;font-size:12px" type="number" value="0">
-      <button class="btn-sm" onclick="exportData()" title="Export backup">↓ Export</button>
-      <button class="btn-sm" onclick="importData()" title="Import backup">↑ Import</button>
-      <button class="btn-sm danger" onclick="resetAll()" title="Reset all">Reset</button>
+      <select class="lang-sel" id="langSel" onchange="setLang(this.value)"><option value="en">EN</option><option value="hi">हिंदी</option><option value="gu">ગુજરાતી</option></select>
+      <label id="hdrCapital" style="color:#94a3b8;font-size:10px"></label>
+      <input id="stockInput" class="inp" style="width:70px;padding:3px 6px;font-size:12px" type="number" value="0">
+      <button class="btn-sm" onclick="exportData()" title="Export">↓</button>
+      <button class="btn-sm" onclick="importData()" title="Import">↑</button>
+      <button class="btn-sm danger" onclick="resetAll()" title="Reset">✕</button>
     </div>
   </header>
-
-  <!-- Tabs -->
-
   <nav class="tab-bar" id="tabBar"></nav>
-
-  <!-- Tab Content -->
-
   <div class="content" id="tabContent"></div>
 </div>
-
 <script>
-// ─── DATA ───
-const CATEGORIES = {
-  income:{label:"Income (Cash In)",color:"#22c55e",icon:"↓"},
-  business_expense:{label:"Business Expense",color:"#f59e0b",icon:"↗"},
-  business_purchase:{label:"Business Purchase",color:"#3b82f6",icon:"◆"},
-  personal_expense:{label:"Personal Expense",color:"#ef4444",icon:"↑"},
-  loan_taken:{label:"Loan Taken",color:"#a855f7",icon:"⬇"},
-  loan_repayment:{label:"Loan Repayment",color:"#a855f7",icon:"⬆"},
-  creditor_purchase:{label:"Purchase on Credit",color:"#ec4899",icon:"📋"},
-  creditor_payment:{label:"Creditor Payment",color:"#ec4899",icon:"✓"},
-  overdraft_taken:{label:"Overdraft Used",color:"#f97316",icon:"⚡"},
-  overdraft_repayment:{label:"Overdraft Repaid",color:"#f97316",icon:"↩"},
-  neutral:{label:"Neutral (Transfer)",color:"#8b5cf6",icon:"⇄"},
+// ═══════════════════════════════════════
+// LANGUAGE SYSTEM
+// ═══════════════════════════════════════
+let lang = localStorage.getItem("ledger-lang") || "en";
+
+const T = {
+// Header
+subtitle:          {en:“Business accounting”,hi:“व्यापार लेखांकन”,gu:“વ્યાપાર હિસાબ”},
+capital:           {en:“Capital”,hi:“पूंजी”,gu:“મૂડી”},
+// Tabs
+dashboard:         {en:“Dashboard”,hi:“डैशबोर्ड”,gu:“ડેશબોર્ડ”},
+addEntry:          {en:“Add Entry”,hi:“नई एंट्री”,gu:“નવી એન્ટ્રી”},
+accounts:          {en:“Accounts”,hi:“खाते”,gu:“ખાતાં”},
+reports:           {en:“Reports”,hi:“रिपोर्ट”,gu:“રિપોર્ટ”},
+// Categories
+income:            {en:“Income”,hi:“आय”,gu:“આવક”},
+business_expense:  {en:“Business Expense”,hi:“व्यापार खर्च”,gu:“વ્યાપાર ખર્ચ”},
+business_purchase: {en:“Business Purchase”,hi:“व्यापार खरीद”,gu:“વ્યાપાર ખરીદી”},
+personal_expense:  {en:“Personal Expense”,hi:“व्यक्तिगत खर्च”,gu:“અંગત ખર્ચ”},
+loan_taken:        {en:“Loan Taken”,hi:“लोन लिया”,gu:“લોન લીધી”},
+loan_repayment:    {en:“Loan Repayment”,hi:“लोन चुकाया”,gu:“લોન ચૂકવણી”},
+creditor_purchase: {en:“Purchase on Credit”,hi:“उधार खरीद”,gu:“ઉધાર ખરીદી”},
+creditor_payment:  {en:“Creditor Payment”,hi:“उधार चुकाया”,gu:“લેણદાર ચૂકવણી”},
+overdraft_taken:   {en:“Overdraft Used”,hi:“ओवरड्राफ्ट इस्तेमाल”,gu:“ઓવરડ્રાફ્ટ વપરાશ”},
+overdraft_repay:   {en:“Overdraft Repaid”,hi:“ओवरड्राफ्ट चुकाया”,gu:“ઓવરડ્રાફ્ટ ચૂકવણી”},
+neutral:           {en:“Neutral (Transfer)”,hi:“ट्रांसफर”,gu:“ટ્રાન્સફર”},
+// Optgroups
+grpIncome:         {en:“Income”,hi:“आय”,gu:“આવક”},
+grpExpenses:       {en:“Expenses”,hi:“खर्च”,gu:“ખર્ચ”},
+grpLiabilities:    {en:“Liabilities”,hi:“देनदारी”,gu:“જવાબદારી”},
+grpTransfer:       {en:“Transfer”,hi:“ट्रांसफर”,gu:“ટ્રાન્સફર”},
+// Subcategories
+salary:            {en:“Salary (Tutor, Maid, etc.)”,hi:“वेतन (ट्यूटर, नौकर आदि)”,gu:“પગાર (ટ્યુટર, નોકર વગેરે)”},
+utilities:         {en:“Utilities (Electricity, Water)”,hi:“बिजली, पानी”,gu:“વીજળી, પાણી”},
+rent:              {en:“Rent”,hi:“किराया”,gu:“ભાડું”},
+maintenance:       {en:“Maintenance”,hi:“रखरखाव”,gu:“જાળવણી”},
+transport:         {en:“Transport”,hi:“परिवहन”,gu:“પરિવહન”},
+machine:           {en:“Machine / Equipment”,hi:“मशीन / उपकरण”,gu:“મશીન / સાધન”},
+furniture:         {en:“Furniture”,hi:“फर्नीचर”,gu:“ફર્નિચર”},
+instruments:       {en:“Instruments”,hi:“वाद्य यंत्र”,gu:“વાદ્ય”},
+inventory:         {en:“Inventory / Stock”,hi:“माल / स्टॉक”,gu:“માલ / સ્ટોક”},
+electronics:       {en:“Electronics”,hi:“इलेक्ट्रॉनिक्स”,gu:“ઇલેક્ટ્રોનિક્સ”},
+vehicle:           {en:“Vehicle”,hi:“वाहन”,gu:“વાહન”},
+food:              {en:“Food”,hi:“भोजन”,gu:“ભોજન”},
+grocery:           {en:“Grocery”,hi:“किराना”,gu:“કરિયાણું”},
+medical:           {en:“Medical”,hi:“चिकित्सा”,gu:“તબીબી”},
+clothing:          {en:“Clothing”,hi:“कपड़े”,gu:“કપડાં”},
+entertainment:     {en:“Entertainment”,hi:“मनोरंजन”,gu:“મનોરંજન”},
+sales:             {en:“Sales / Service Income”,hi:“बिक्री / सेवा आय”,gu:“વેચાણ / સેવા આવક”},
+commission:        {en:“Commission”,hi:“कमीशन”,gu:“કમિશન”},
+interest:          {en:“Interest Earned”,hi:“ब्याज आय”,gu:“વ્યાજ આવક”},
+other:             {en:“Other”,hi:“अन्य”,gu:“અન્ય”},
+// Form labels
+category:          {en:“Category”,hi:“श्रेणी”,gu:“શ્રેણી”},
+subcategory:       {en:“Subcategory”,hi:“उपश्रेणी”,gu:“પેટાશ્રેણી”},
+amount:            {en:“Amount (₹)”,hi:“राशि (₹)”,gu:“રકમ (₹)”},
+date:              {en:“Date”,hi:“तारीख”,gu:“તારીખ”},
+paymentMode:       {en:“Payment Mode”,hi:“भुगतान माध्यम”,gu:“ચૂકવણી રીત”},
+cash:              {en:“💵 Cash”,hi:“💵 नकद”,gu:“💵 રોકડ”},
+bankUPI:           {en:“🏦 Bank / UPI”,hi:“🏦 बैंक / UPI”,gu:“🏦 બેંક / UPI”},
+cashLabel:         {en:“Cash”,hi:“नकद”,gu:“રોકડ”},
+bankLabel:         {en:“Bank”,hi:“बैंक”,gu:“બેંક”},
+direction:         {en:“Direction”,hi:“दिशा”,gu:“દિશા”},
+cashToBank:        {en:“Cash → Bank”,hi:“नकद → बैंक”,gu:“રોકડ → બેંક”},
+bankToCash:        {en:“Bank → Cash”,hi:“बैंक → नकद”,gu:“બેંક → રોકડ”},
+lenderName:        {en:“Lender Name”,hi:“ऋणदाता”,gu:“ધિરાણકર્તા”},
+creditorName:      {en:“Creditor Name”,hi:“लेनदार”,gu:“લેણદાર”},
+description:       {en:“Description”,hi:“विवरण”,gu:“વર્ણન”},
+descPlaceholder:   {en:“e.g. Guitar strings, Tutor salary…”,hi:“जैसे: गिटार तार, ट्यूटर वेतन…”,gu:“દા.ત. ગિટાર તાર, ટ્યુટર પગાર…”},
+addEntryBtn:       {en:“Add Entry”,hi:“एंट्री जोड़ें”,gu:“એન્ટ્રી ઉમેરો”},
+newEntry:          {en:“New Entry”,hi:“नई एंट्री”,gu:“નવી એન્ટ્રી”},
+// Dashboard
+moneyInHand:       {en:“Money In Hand Right Now”,hi:“अभी हाथ में पैसा”,gu:“હાલ હાથમાં પૈસા”},
+totalAssets:       {en:“Total Assets”,hi:“कुल संपत्ति”,gu:“કુલ સંપત્તિ”},
+totalLiabilities:  {en:“Total Liabilities”,hi:“कुल देनदारी”,gu:“કુલ જવાબદારી”},
+profit:            {en:“Profit”,hi:“लाभ”,gu:“નફો”},
+gross:             {en:“Gross”,hi:“सकल”,gu:“કુલ”},
+net:               {en:“Net”,hi:“शुद्ध”,gu:“ચોખ્ખો”},
+netWorth:          {en:“NET WORTH (Assets − Liabilities)”,hi:“कुल मूल्य (संपत्ति − देनदारी)”,gu:“ચોખ્ખી મૂડી (સંપત્તિ − જવાબદારી)”},
+outstandingLiab:   {en:“Outstanding Liabilities”,hi:“बकाया देनदारी”,gu:“બાકી જવાબદારી”},
+recentEntries:     {en:“Recent Entries”,hi:“हाल की एंट्री”,gu:“તાજેતરની એન્ટ્રી”},
+// Accounts
+tradingAccount:    {en:“Trading Account”,hi:“व्यापार खाता”,gu:“વેપાર ખાતું”},
+plAccount:         {en:“Profit & Loss A/C”,hi:“लाभ-हानि खाता”,gu:“નફા-નુકસાન ખાતું”},
+balanceSheet:      {en:“Balance Sheet”,hi:“बैलेंस शीट”,gu:“બેલેન્સ શીટ”},
+debit:             {en:“Debit”,hi:“नामे”,gu:“ઉધાર”},
+credit:            {en:“Credit”,hi:“जमा”,gu:“જમા”},
+liabilities:       {en:“Liabilities”,hi:“देनदारी”,gu:“જવાબદારી”},
+assets:            {en:“Assets”,hi:“संपत्ति”,gu:“સંપત્તિ”},
+particular:        {en:“Particular”,hi:“विवरण”,gu:“વિગત”},
+amt:               {en:“Amt”,hi:“राशि”,gu:“રકમ”},
+total:             {en:“Total”,hi:“कुल”,gu:“કુલ”},
+businessIncome:    {en:“Business Income”,hi:“व्यापार आय”,gu:“વ્યાપાર આવક”},
+openingStock:      {en:“Opening Stock”,hi:“प्रारंभिक स्टॉक”,gu:“શરૂઆતનો સ્ટોક”},
+capitalOS:         {en:“Capital (Opening Stock)”,hi:“पूंजी (प्रारंभिक स्टॉक)”,gu:“મૂડી (શરૂઆતનો સ્ટોક)”},
+creditors:         {en:“Creditors”,hi:“लेनदार”,gu:“લેણદાર”},
+loan:              {en:“Loan”,hi:“ऋण”,gu:“લોન”},
+overdraftFac:      {en:“Overdraft Facility”,hi:“ओवरड्राफ्ट”,gu:“ઓવરડ્રાફ્ટ”},
+bankBalance:       {en:“Bank Balance”,hi:“बैंक शेष”,gu:“બેંક બેલેન્સ”},
+cashBalance:       {en:“Cash Balance”,hi:“नकद शेष”,gu:“રોકડ બેલેન્સ”},
+purchaseCash:      {en:“Business Purchase (Cash)”,hi:“व्यापार खरीद (नकद)”,gu:“વ્યાપાર ખરીદી (રોકડ)”},
+purchaseCredit:    {en:“Purchase on Credit”,hi:“उधार खरीद”,gu:“ઉધાર ખરીદી”},
+personalCashOut:   {en:“Personal Expense (Cash Out)”,hi:“व्यक्तिगत खर्च (नकद बाहर)”,gu:“અંગત ખર્ચ (રોકડ બહાર)”},
+fromGrossProfit:   {en:“From Gross Profit”,hi:“सकल लाभ से”,gu:“કુલ નફા માંથી”},
+grossProfit:       {en:“Gross Profit (B − A)”,hi:“सकल लाभ (B − A)”,gu:“કુલ નફો (B − A)”},
+netProfit:         {en:“Net Profit (B − A)”,hi:“शुद्ध लाभ (B − A)”,gu:“ચોખ્ખો નફો (B − A)”},
+netWorthCalc:      {en:“Net Worth (Assets − Liabilities)”,hi:“कुल मूल्य (संपत्ति − देनदारी)”,gu:“ચોખ્ખી મૂડી (સંપત્તિ − જવાબદારી)”},
+// Reports
+monthlyBreakdown:  {en:“Monthly Breakdown”,hi:“मासिक विवरण”,gu:“માસિક વિગત”},
+categoryBreakdown: {en:“Category-wise Breakdown”,hi:“श्रेणी अनुसार विवरण”,gu:“શ્રેણી મુજબ વિગત”},
+month:             {en:“Month”,hi:“महीना”,gu:“મહિનો”},
+bizExp:            {en:“Biz Exp”,hi:“व्या. खर्च”,gu:“વ્યા. ખર્ચ”},
+bizPurch:          {en:“Biz Purch”,hi:“व्या. खरीद”,gu:“વ્યા. ખરીદી”},
+personal:          {en:“Personal”,hi:“व्यक्तिगत”,gu:“અંગત”},
+noEntries:         {en:“No entries yet.”,hi:“अभी कोई एंट्री नहीं।”,gu:“હજુ કોઈ એન્ટ્રી નથી.”},
+// Alerts
+resetConfirm:      {en:“Reset all data? This cannot be undone.”,hi:“सारा डेटा मिटाएं? यह वापस नहीं होगा।”,gu:“બધો ડેટા ભૂંસો? આ પાછું નહીં થાય.”},
+imported:          {en:“Data imported!”,hi:“डेटा आयात हुआ!”,gu:“ડેટા આયાત થયો!”},
+invalidFile:       {en:“Invalid file.”,hi:“अमान्य फ़ाइल।”,gu:“અમાન્ય ફાઇલ.”},
+errorReading:      {en:“Error reading file.”,hi:“फ़ाइल पढ़ने में त्रुटि।”,gu:“ફાઇલ વાંચવામાં ભૂલ.”},
 };
 
-const SUBCATEGORIES = {
-  business_expense:[{v:"salary",l:"Salary (Tutor, Maid, etc.)"},{v:"utilities",l:"Utilities (Electricity, Water)"},{v:"rent",l:"Rent"},{v:"maintenance",l:"Maintenance"},{v:"transport",l:"Transport"},{v:"other_biz_exp",l:"Other"}],
-  business_purchase:[{v:"machine",l:"Machine / Equipment"},{v:"furniture",l:"Furniture"},{v:"instruments",l:"Instruments"},{v:"inventory",l:"Inventory / Stock"},{v:"electronics",l:"Electronics"},{v:"vehicle",l:"Vehicle"},{v:"other_biz_pur",l:"Other"}],
-  personal_expense:[{v:"food",l:"Food"},{v:"grocery",l:"Grocery"},{v:"medical",l:"Medical"},{v:"clothing",l:"Clothing"},{v:"entertainment",l:"Entertainment"},{v:"other_personal",l:"Other"}],
-  income:[{v:"sales",l:"Sales / Service Income"},{v:"commission",l:"Commission"},{v:"interest",l:"Interest Earned"},{v:"other_income",l:"Other"}],
-  creditor_purchase:[{v:"machine",l:"Machine / Equipment"},{v:"furniture",l:"Furniture"},{v:"instruments",l:"Instruments"},{v:"inventory",l:"Inventory / Stock"},{v:"electronics",l:"Electronics"},{v:"vehicle",l:"Vehicle"},{v:"other_biz_pur",l:"Other"}],
+function t(key){return(T[key]&&T[key][lang])||T[key]?.en||key}
+
+const MONTHS_T = {
+en:[“Jan”,“Feb”,“Mar”,“Apr”,“May”,“Jun”,“Jul”,“Aug”,“Sep”,“Oct”,“Nov”,“Dec”],
+hi:[“जन”,“फर”,“मार्च”,“अप्रैल”,“मई”,“जून”,“जुलाई”,“अग”,“सित”,“अक्टू”,“नव”,“दिस”],
+gu:[“જાન”,“ફેબ”,“માર્ચ”,“એપ્રિ”,“મે”,“જૂન”,“જુલાઈ”,“ઓગ”,“સપ્ટે”,“ઓક્ટો”,“નવે”,“ડિસે”],
 };
 
-const ASSET_TYPES={machine:"Machine",furniture:"Furniture",instruments:"Instruments",inventory:"Inventory",electronics:"Electronics",vehicle:"Vehicle",other_biz_pur:"Other Assets"};
-const MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-const TABS=["Dashboard","Add Entry","Accounts","Reports"];
+// ═══════════════════════════════════════
+// DATA & HELPERS
+// ═══════════════════════════════════════
+const CAT_COLORS={income:”#22c55e”,business_expense:”#f59e0b”,business_purchase:”#3b82f6”,personal_expense:”#ef4444”,loan_taken:”#a855f7”,loan_repayment:”#a855f7”,creditor_purchase:”#ec4899”,creditor_payment:”#ec4899”,overdraft_taken:”#f97316”,overdraft_repayment:”#f97316”,neutral:”#8b5cf6”};
+const CAT_ICONS={income:“↓”,business_expense:“↗”,business_purchase:“◆”,personal_expense:“↑”,loan_taken:“⬇”,loan_repayment:“⬆”,creditor_purchase:“📋”,creditor_payment:“✓”,overdraft_taken:“⚡”,overdraft_repayment:“↩”,neutral:“⇄”};
+const ASSET_KEYS={machine:“machine”,furniture:“furniture”,instruments:“instruments”,inventory:“inventory”,electronics:“electronics”,vehicle:“vehicle”,other_biz_pur:“other”};
 
-// ─── State ───
-let state = {entries:[], openingStock:0};
-let currentTab = 0;
+const SUB_KEYS={
+business_expense:[“salary”,“utilities”,“rent”,“maintenance”,“transport”,“other”],
+business_purchase:[“machine”,“furniture”,“instruments”,“inventory”,“electronics”,“vehicle”,“other”],
+personal_expense:[“food”,“grocery”,“medical”,“clothing”,“entertainment”,“other”],
+income:[“sales”,“commission”,“interest”,“other”],
+creditor_purchase:[“machine”,“furniture”,“instruments”,“inventory”,“electronics”,“vehicle”,“other”],
+};
 
-// ─── Helpers ───
+function catLabel(key){return t(key)||key}
+function subLabel(key){return t(key)||key}
+function assetLabel(key){return t(key)||key}
+
+let state={entries:[],openingStock:0};
+let currentTab=0;
+
 function genId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
-function formatINR(n){if(n==null)return"₹0";const s=Math.abs(n).toLocaleString("en-IN",{maximumFractionDigits:0});return(n<0?"-₹":"₹")+s}
-function getMonthKey(d){const dt=new Date(d);return dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")}
-function getMonthLabel(k){const[y,m]=k.split("-");return MONTHS[parseInt(m)-1]+" "+y}
-function getSubLabel(cat,sub){const list=SUBCATEGORIES[cat]||[];const f=list.find(s=>s.v===sub);return f?f.l:sub||""}
-function esc(s){const d=document.createElement("div");d.textContent=s;return d.innerHTML}
+function formatINR(n){if(n==null)return”₹0”;const s=Math.abs(n).toLocaleString(“en-IN”,{maximumFractionDigits:0});return(n<0?”-₹”:“₹”)+s}
+function getMonthKey(d){const dt=new Date(d);return dt.getFullYear()+”-”+String(dt.getMonth()+1).padStart(2,“0”)}
+function getMonthLabel(k){const[y,m]=k.split(”-”);return MONTHS_T[lang][parseInt(m)-1]+” “+y}
+function esc(s){const d=document.createElement(“div”);d.textContent=s;return d.innerHTML}
 
-// ─── Storage ───
-const SK="ledger-v2";
+const SK=“ledger-v2”;
 function load(){try{const d=localStorage.getItem(SK);return d?JSON.parse(d):{entries:[],openingStock:0}}catch{return{entries:[],openingStock:0}}}
 function save(){try{localStorage.setItem(SK,JSON.stringify(state))}catch(e){console.error(e)}}
 
-// ─── Compute ───
 function computeAll(){
-  const entries=state.entries, openingStock=state.openingStock;
-  let income=0,bizExp=0,bizPurch=0,persExp=0,cashBal=0,bankBal=0,loans=0,creditors=0,overdraft=0,creditPurchases=0;
-  const assetBreakdown={},subBreakdown={};
-  entries.forEach(e=>{
-    const amt=Number(e.amount),sub=e.subcategory||"other",cat=e.category;
-    if(!subBreakdown[cat])subBreakdown[cat]={};
-    subBreakdown[cat][sub]=(subBreakdown[cat][sub]||0)+amt;
-    switch(cat){
-      case"income":income+=amt;cashBal+=amt;break;
-      case"business_expense":bizExp+=amt;cashBal-=amt;break;
-      case"business_purchase":bizPurch+=amt;cashBal-=amt;assetBreakdown[sub]=(assetBreakdown[sub]||0)+amt;break;
-      case"personal_expense":persExp+=amt;cashBal-=amt;break;
-      case"loan_taken":loans+=amt;cashBal+=amt;break;
-      case"loan_repayment":loans-=amt;cashBal-=amt;break;
-      case"creditor_purchase":creditors+=amt;creditPurchases+=amt;assetBreakdown[sub]=(assetBreakdown[sub]||0)+amt;break;
-      case"creditor_payment":creditors-=amt;cashBal-=amt;break;
-      case"overdraft_taken":overdraft+=amt;bankBal+=amt;break;
-      case"overdraft_repayment":overdraft-=amt;bankBal-=amt;break;
-      case"neutral":if(e.transferTo==="bank"){cashBal-=amt;bankBal+=amt}else{cashBal+=amt;bankBal-=amt}break;
-    }
-  });
-  const tradingDebit=bizExp+bizPurch+creditPurchases,tradingCredit=income+openingStock,grossProfit=tradingCredit-tradingDebit;
-  const plDebit=persExp,plCredit=Math.max(grossProfit,0),netProfit=plCredit-plDebit;
-  const totalAssets=bizPurch+creditPurchases+Math.max(bankBal,0)+Math.max(cashBal,0);
-  const totalLiabilities=openingStock+Math.max(loans,0)+Math.max(creditors,0)+Math.max(overdraft,0);
-  const netWorth=totalAssets-totalLiabilities;
-  return{income,bizExp,bizPurch,persExp,openingStock,creditPurchases,tradingDebit,tradingCredit,grossProfit,plDebit,plCredit,netProfit,cashBal,bankBal,loans:Math.max(loans,0),creditors:Math.max(creditors,0),overdraft:Math.max(overdraft,0),totalAssets,totalLiabilities,netWorth,assetBreakdown,subBreakdown};
+const entries=state.entries,openingStock=state.openingStock;
+let income=0,bizExp=0,bizPurch=0,persExp=0,cashBal=0,bankBal=0,loans=0,creditors=0,overdraft=0,creditPurchases=0;
+const assetBreakdown={},subBreakdown={};
+entries.forEach(e=>{
+const amt=Number(e.amount),sub=e.subcategory||“other”,cat=e.category,mode=e.paymentMode||“cash”;
+if(!subBreakdown[cat])subBreakdown[cat]={};
+subBreakdown[cat][sub]=(subBreakdown[cat][sub]||0)+amt;
+switch(cat){
+case”income”:income+=amt;if(mode===“bank”)bankBal+=amt;else cashBal+=amt;break;
+case”business_expense”:bizExp+=amt;if(mode===“bank”)bankBal-=amt;else cashBal-=amt;break;
+case”business_purchase”:bizPurch+=amt;if(mode===“bank”)bankBal-=amt;else cashBal-=amt;assetBreakdown[sub]=(assetBreakdown[sub]||0)+amt;break;
+case”personal_expense”:persExp+=amt;if(mode===“bank”)bankBal-=amt;else cashBal-=amt;break;
+case”loan_taken”:loans+=amt;if(mode===“bank”)bankBal+=amt;else cashBal+=amt;break;
+case”loan_repayment”:loans-=amt;if(mode===“bank”)bankBal-=amt;else cashBal-=amt;break;
+case”creditor_purchase”:creditors+=amt;creditPurchases+=amt;assetBreakdown[sub]=(assetBreakdown[sub]||0)+amt;break;
+case”creditor_payment”:creditors-=amt;if(mode===“bank”)bankBal-=amt;else cashBal-=amt;break;
+case”overdraft_taken”:overdraft+=amt;bankBal+=amt;break;
+case”overdraft_repayment”:overdraft-=amt;bankBal-=amt;break;
+case”neutral”:if(e.transferTo===“bank”){cashBal-=amt;bankBal+=amt}else{cashBal+=amt;bankBal-=amt}break;
+}
+});
+const tradingDebit=bizExp+bizPurch+creditPurchases,tradingCredit=income+openingStock,grossProfit=tradingCredit-tradingDebit;
+const plDebit=persExp,plCredit=Math.max(grossProfit,0),netProfit=plCredit-plDebit;
+const totalAssets=bizPurch+creditPurchases+Math.max(bankBal,0)+Math.max(cashBal,0);
+const totalLiabilities=openingStock+Math.max(loans,0)+Math.max(creditors,0)+Math.max(overdraft,0);
+const netWorth=totalAssets-totalLiabilities;
+return{income,bizExp,bizPurch,persExp,openingStock,creditPurchases,tradingDebit,tradingCredit,grossProfit,plDebit,plCredit,netProfit,cashBal,bankBal,loans:Math.max(loans,0),creditors:Math.max(creditors,0),overdraft:Math.max(overdraft,0),totalAssets,totalLiabilities,netWorth,assetBreakdown,subBreakdown};
 }
 
-// ─── Render Helpers ───
-function accountTableHTML(title,accent,debitItems,creditItems,debitTotal,creditTotal,result,resultLabel){
-  const maxRows=Math.max(debitItems.length,creditItems.length);
-  let rows="";
-  for(let i=0;i<maxRows;i++){
-    rows+=`<tr><td class="td">${debitItems[i]?.label||""}</td><td class="td td-r br">${debitItems[i]?.amount?formatINR(debitItems[i].amount):""}</td><td class="td">${creditItems[i]?.label||""}</td><td class="td td-r">${creditItems[i]?.amount?formatINR(creditItems[i].amount):""}</td></tr>`;
-  }
-  return`<div class="card" style="border-top:3px solid ${accent}">
-    <h3 class="card-title" style="color:${accent}">${title}</h3>
-    <div class="table-wrap"><table>
-      <thead><tr><th class="th br" colspan="2">Debit</th><th class="th" colspan="2">Credit</th></tr>
-      <tr><th class="th-sub">Particular</th><th class="th-sub td-r br">Amt</th><th class="th-sub">Particular</th><th class="th-sub td-r">Amt</th></tr></thead>
-      <tbody>${rows}
-      <tr style="border-top:2px solid #334155"><td class="td td-b">Total</td><td class="td td-r td-b br">${formatINR(debitTotal)}</td><td class="td td-b">Total</td><td class="td td-r td-b">${formatINR(creditTotal)}</td></tr>
-      </tbody></table></div>
-    <div class="result-bar" style="background:${accent}18;border-left:3px solid ${accent}">
-      <span style="color:#94a3b8;font-size:13px">${resultLabel}</span>
-      <span class="mono" style="color:${accent};font-weight:800;font-size:22px">${formatINR(result)}</span>
-    </div></div>`;
+// ═══════════════════════════════════════
+// RENDERERS
+// ═══════════════════════════════════════
+function accountTableHTML(title,accent,debitItems,creditItems,debitTotal,creditTotal,result,resultLabel,leftHead,rightHead){
+const lh=leftHead||t(“debit”),rh=rightHead||t(“credit”);
+const maxRows=Math.max(debitItems.length,creditItems.length);
+let rows=””;
+for(let i=0;i<maxRows;i++){
+rows+=`<tr><td class="td">${debitItems[i]?.label||""}</td><td class="td td-r br">${debitItems[i]?.amount?formatINR(debitItems[i].amount):""}</td><td class="td">${creditItems[i]?.label||""}</td><td class="td td-r">${creditItems[i]?.amount?formatINR(creditItems[i].amount):""}</td></tr>`;
+}
+return`<div class="card" style="border-top:3px solid ${accent}"><h3 class="card-title" style="color:${accent}">${title}</h3><div class="table-wrap"><table> <thead><tr><th class="th br" colspan="2">${lh}</th><th class="th" colspan="2">${rh}</th></tr> <tr><th class="th-sub">${t("particular")}</th><th class="th-sub td-r br">${t("amt")}</th><th class="th-sub">${t("particular")}</th><th class="th-sub td-r">${t("amt")}</th></tr></thead> <tbody>${rows}<tr style="border-top:2px solid #334155"><td class="td td-b">${t("total")}</td><td class="td td-r td-b br">${formatINR(debitTotal)}</td><td class="td td-b">${t("total")}</td><td class="td td-r td-b">${formatINR(creditTotal)}</td></tr></tbody></table></div> <div class="result-bar" style="background:${accent}18;border-left:3px solid ${accent}"><span style="color:#94a3b8;font-size:13px">${resultLabel}</span><span class="mono" style="color:${accent};font-weight:800;font-size:22px">${formatINR(result)}</span></div></div>`;
 }
 
-// ─── Tab Renderers ───
 function renderDashboard(){
-  const a=computeAll();
-  const liquidCash=Math.max(a.cashBal,0)+Math.max(a.bankBal,0);
+const a=computeAll();
+const liquidCash=Math.max(a.cashBal,0)+Math.max(a.bankBal,0);
+let assetLines=””;
+Object.entries(a.assetBreakdown).filter(([,v])=>v>0).forEach(([k,v])=>{
+assetLines+=`<div style="display:flex;justify-content:space-between;font-size:10px;color:#94a3b8;margin-top:2px"><span>${assetLabel(k)}</span><span class="mono">${formatINR(v)}</span></div>`;
+});
+let liabLines=””;
+if(a.openingStock>0)liabLines+=`<div style="display:flex;justify-content:space-between;font-size:10px;color:#94a3b8;margin-top:2px"><span>${t("capital")}</span><span class="mono">${formatINR(a.openingStock)}</span></div>`;
+if(a.creditors>0)liabLines+=`<div style="display:flex;justify-content:space-between;font-size:10px;color:#94a3b8;margin-top:2px"><span>${t("creditors")}</span><span class="mono">${formatINR(a.creditors)}</span></div>`;
+if(a.loans>0)liabLines+=`<div style="display:flex;justify-content:space-between;font-size:10px;color:#94a3b8;margin-top:2px"><span>${t("loan")}</span><span class="mono">${formatINR(a.loans)}</span></div>`;
+if(a.overdraft>0)liabLines+=`<div style="display:flex;justify-content:space-between;font-size:10px;color:#94a3b8;margin-top:2px"><span>${t("overdraftFac")}</span><span class="mono">${formatINR(a.overdraft)}</span></div>`;
 
-  // Assets breakdown
-  let assetLines="";
-  Object.entries(a.assetBreakdown).filter(([,v])=>v>0).forEach(([k,v])=>{
-    assetLines+=`<div style="display:flex;justify-content:space-between;font-size:10px;color:#64748b;margin-top:2px"><span>${ASSET_TYPES[k]||k}</span><span class="mono">${formatINR(v)}</span></div>`;
-  });
+const lenders={};
+state.entries.forEach(e=>{if(!e.lenderName)return;const name=e.lenderName.trim();if(!name)return;if(!lenders[name])lenders[name]={total:0,type:””};
+if([“loan_taken”,“creditor_purchase”,“overdraft_taken”].includes(e.category)){lenders[name].total+=Number(e.amount);lenders[name].type=e.category.includes(“loan”)?t(“loan”):e.category.includes(“creditor”)?t(“creditors”):t(“overdraftFac”)}
+if([“loan_repayment”,“creditor_payment”,“overdraft_repayment”].includes(e.category)){lenders[name].total-=Number(e.amount)}});
+const active=Object.entries(lenders).filter(([,v])=>v.total>0);
+let liabTracker=””;
+if(active.length){
+const td=active.reduce((s,[,v])=>s+v.total,0);
+let rows=active.map(([name,v])=>`<div class="entry-row"><span class="cat-badge" style="background:#a855f722;color:#a855f7">${v.type}</span><span style="flex:1;color:#cbd5e1;font-size:13px">${esc(name)}</span><span class="mono" style="font-weight:700;color:#f97316;font-size:14px">${formatINR(v.total)}</span></div>`).join(””);
+liabTracker=`<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3 class="card-title" style="margin:0">${t("outstandingLiab")}</h3><span class="mono" style="font-weight:700;color:#f97316;font-size:14px">${formatINR(td)}</span></div>${rows}</div>`;
+}
 
-  // Liabilities breakdown
-  let liabLines="";
-  if(a.openingStock>0)liabLines+=`<div style="display:flex;justify-content:space-between;font-size:10px;color:#64748b;margin-top:2px"><span>Capital</span><span class="mono">${formatINR(a.openingStock)}</span></div>`;
-  if(a.creditors>0)liabLines+=`<div style="display:flex;justify-content:space-between;font-size:10px;color:#64748b;margin-top:2px"><span>Creditors</span><span class="mono">${formatINR(a.creditors)}</span></div>`;
-  if(a.loans>0)liabLines+=`<div style="display:flex;justify-content:space-between;font-size:10px;color:#64748b;margin-top:2px"><span>Loan</span><span class="mono">${formatINR(a.loans)}</span></div>`;
-  if(a.overdraft>0)liabLines+=`<div style="display:flex;justify-content:space-between;font-size:10px;color:#64748b;margin-top:2px"><span>Overdraft</span><span class="mono">${formatINR(a.overdraft)}</span></div>`;
+const recent=[…state.entries].sort((a,b)=>b.createdAt-a.createdAt).slice(0,20);
+let recentHTML=””;
+if(recent.length){
+let rows=recent.map(e=>{
+const col=CAT_COLORS[e.category],icon=CAT_ICONS[e.category],cl=catLabel(e.category),sl=subLabel(e.subcategory);
+return`<div class="entry-row"><span class="cat-badge" style="background:${col}22;color:${col}">${icon} ${cl}</span>${sl?`<span class="sub-badge">${esc(sl)}</span>`:""}<span class="sub-badge">${e.paymentMode==="bank"?"🏦 "+t("bankLabel"):"💵 "+t("cashLabel")}</span><span style="flex:1;color:#cbd5e1;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(e.description||e.lenderName||"—")}</span><span class="mono" style="font-weight:700;color:#f1f5f9;font-size:13px">${formatINR(e.amount)}</span><span style="color:#94a3b8;font-size:10px">${e.date}</span><button class="btn-del" onclick="deleteEntry('${e.id}')" title="Delete">×</button></div>`;
+}).join(””);
+recentHTML=`<div class="card"><h3 class="card-title">${t("recentEntries")}</h3>${rows}</div>`;
+}
 
-  // Liability tracker
-  const lenders={};
-  state.entries.forEach(e=>{if(!e.lenderName)return;const name=e.lenderName.trim();if(!name)return;if(!lenders[name])lenders[name]={total:0,type:""};
-    if(["loan_taken","creditor_purchase","overdraft_taken"].includes(e.category)){lenders[name].total+=Number(e.amount);lenders[name].type=e.category.includes("loan")?"Loan":e.category.includes("creditor")?"Creditor":"Overdraft"}
-    if(["loan_repayment","creditor_payment","overdraft_repayment"].includes(e.category)){lenders[name].total-=Number(e.amount)}});
-  const active=Object.entries(lenders).filter(([,v])=>v.total>0);
-  let liabTracker="";
-  if(active.length){
-    const td=active.reduce((s,[,v])=>s+v.total,0);
-    let rows=active.map(([name,v])=>`<div class="entry-row"><span class="cat-badge" style="background:#a855f722;color:#a855f7">${v.type}</span><span style="flex:1;color:#cbd5e1;font-size:13px">${esc(name)}</span><span class="mono" style="font-weight:700;color:#f97316;font-size:14px">${formatINR(v.total)}</span></div>`).join("");
-    liabTracker=`<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3 class="card-title" style="margin:0">Outstanding Liabilities</h3><span class="mono" style="font-weight:700;color:#f97316;font-size:14px">${formatINR(td)}</span></div>${rows}</div>`;
-  }
+return`<div class="hero-card"><div style="color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px">${t(“moneyInHand”)}</div><div class=“mono” style=“font-weight:800;font-size:32px;color:${liquidCash>=0?”#22c55e”:”#ef4444”};line-height:1.2”>${formatINR(liquidCash)}</div><div style="display:flex;gap:16px;margin-top:10px"><div><div style="color:#94a3b8;font-size:10px">${t(“cashLabel”)}</div><div class=“mono” style=“font-weight:700;font-size:15px;color:${a.cashBal>=0?”#22c55e”:”#ef4444”}”>${formatINR(a.cashBal)}</div></div><div><div style="color:#94a3b8;font-size:10px">${t(“bankLabel”)}</div><div class="mono" style="font-weight:700;font-size:15px;color:#8b5cf6">${formatINR(a.bankBal)}</div></div></div></div>
 
-  // Recent entries
-  const recent=[...state.entries].sort((a,b)=>b.createdAt-a.createdAt).slice(0,20);
-  let recentHTML="";
-  if(recent.length){
-    let rows=recent.map(e=>{
-      const cat=CATEGORIES[e.category];const subLabel=getSubLabel(e.category,e.subcategory);
-      return`<div class="entry-row">
-        <span class="cat-badge" style="background:${cat.color}22;color:${cat.color}">${cat.icon} ${cat.label}</span>
-        ${subLabel?`<span class="sub-badge">${esc(subLabel)}</span>`:""}
-        <span style="flex:1;color:#cbd5e1;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(e.description||e.lenderName||"—")}</span>
-        <span class="mono" style="font-weight:700;color:#f1f5f9;font-size:13px">${formatINR(e.amount)}</span>
-        <span style="color:#64748b;font-size:10px">${e.date}</span>
-        <button class="btn-del" onclick="deleteEntry('${e.id}')" title="Delete">×</button>
-      </div>`;
-    }).join("");
-    recentHTML=`<div class="card"><h3 class="card-title">Recent Entries</h3>${rows}</div>`;
-  }
-
-  return`
-    <div class="hero-card">
-      <div style="color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px">Money In Hand Right Now</div>
-      <div class="mono" style="font-weight:800;font-size:32px;color:${liquidCash>=0?"#22c55e":"#ef4444"};line-height:1.2">${formatINR(liquidCash)}</div>
-      <div style="display:flex;gap:16px;margin-top:10px">
-        <div><div style="color:#64748b;font-size:10px">Cash</div><div class="mono" style="font-weight:700;font-size:15px;color:${a.cashBal>=0?"#22c55e":"#ef4444"}">${formatINR(a.cashBal)}</div></div>
-        <div><div style="color:#64748b;font-size:10px">Bank</div><div class="mono" style="font-weight:700;font-size:15px;color:#8b5cf6">${formatINR(a.bankBal)}</div></div>
-      </div>
-    </div>
-    <div class="stats-grid">
-      <div class="stat-card" style="border-left:3px solid #06b6d4">
-        <span style="color:#64748b;font-size:10px;text-transform:uppercase;letter-spacing:1px">Total Assets</span>
-        <span class="mono" style="font-weight:800;font-size:18px;color:#06b6d4">${formatINR(a.totalAssets)}</span>
-        ${assetLines}
-      </div>
-      <div class="stat-card" style="border-left:3px solid #f97316">
-        <span style="color:#64748b;font-size:10px;text-transform:uppercase;letter-spacing:1px">Total Liabilities</span>
-        <span class="mono" style="font-weight:800;font-size:18px;color:${a.totalLiabilities>0?"#f97316":"#22c55e"}">${formatINR(a.totalLiabilities)}</span>
-        ${liabLines}
-      </div>
-      <div class="stat-card" style="border-left:3px solid #22c55e">
-        <span style="color:#64748b;font-size:10px;text-transform:uppercase;letter-spacing:1px">Profit</span>
-        <span class="mono" style="font-weight:800;font-size:18px;color:${a.netProfit>=0?"#22c55e":"#ef4444"}">${formatINR(a.netProfit)}</span>
-        <div style="display:flex;justify-content:space-between;font-size:10px;color:#64748b;margin-top:2px"><span>Gross</span><span class="mono">${formatINR(a.grossProfit)}</span></div>
-        <div style="display:flex;justify-content:space-between;font-size:10px;color:#64748b;margin-top:2px"><span>Net</span><span class="mono">${formatINR(a.netProfit)}</span></div>
-      </div>
-    </div>
-    <div class="net-worth-bar">
-      <span style="color:#94a3b8;font-size:12px;font-weight:600">NET WORTH (Assets − Liabilities)</span>
-      <span class="mono" style="font-weight:800;font-size:22px;color:${a.netWorth>=0?"#06b6d4":"#ef4444"}">${formatINR(a.netWorth)}</span>
-    </div>
-    ${liabTracker}${recentHTML}`;
+  <div class="stats-grid"><div class="stat-card" style="border-left:3px solid #06b6d4"><span style="color:#94a3b8;font-size:10px;text-transform:uppercase;letter-spacing:1px">${t("totalAssets")}</span><span class="mono" style="font-weight:800;font-size:18px;color:#06b6d4">${formatINR(a.totalAssets)}</span>${assetLines}</div><div class="stat-card" style="border-left:3px solid #f97316"><span style="color:#94a3b8;font-size:10px;text-transform:uppercase;letter-spacing:1px">${t("totalLiabilities")}</span><span class="mono" style="font-weight:800;font-size:18px;color:${a.totalLiabilities>0?"#f97316":"#22c55e"}">${formatINR(a.totalLiabilities)}</span>${liabLines}</div><div class="stat-card" style="border-left:3px solid #22c55e"><span style="color:#94a3b8;font-size:10px;text-transform:uppercase;letter-spacing:1px">${t("profit")}</span><span class="mono" style="font-weight:800;font-size:18px;color:${a.netProfit>=0?"#22c55e":"#ef4444"}">${formatINR(a.netProfit)}</span><div style="display:flex;justify-content:space-between;font-size:10px;color:#94a3b8;margin-top:2px"><span>${t("gross")}</span><span class="mono">${formatINR(a.grossProfit)}</span></div><div style="display:flex;justify-content:space-between;font-size:10px;color:#94a3b8;margin-top:2px"><span>${t("net")}</span><span class="mono">${formatINR(a.netProfit)}</span></div></div></div>
+  <div class="net-worth-bar"><span style="color:#94a3b8;font-size:12px;font-weight:600">${t("netWorth")}</span><span class="mono" style="font-weight:800;font-size:22px;color:${a.netWorth>=0?"#06b6d4":"#ef4444"}">${formatINR(a.netWorth)}</span></div>${liabTracker}${recentHTML}`;
 }
 
 function renderAddEntry(){
-  const cats=[
-    {group:"Income",items:[{v:"income",l:"↓ Income (Cash In)"}]},
-    {group:"Expenses",items:[{v:"business_expense",l:"↗ Business Expense"},{v:"business_purchase",l:"◆ Business Purchase"},{v:"personal_expense",l:"↑ Personal Expense"}]},
-    {group:"Liabilities",items:[{v:"loan_taken",l:"⬇ Loan Taken"},{v:"loan_repayment",l:"⬆ Loan Repayment"},{v:"creditor_purchase",l:"📋 Purchase on Credit"},{v:"creditor_payment",l:"✓ Creditor Payment"},{v:"overdraft_taken",l:"⚡ Overdraft Used"},{v:"overdraft_repayment",l:"↩ Overdraft Repaid"}]},
-    {group:"Transfer",items:[{v:"neutral",l:"⇄ Neutral (Transfer)"}]}
-  ];
-  let catOptions=cats.map(g=>`<optgroup label="${g.group}">${g.items.map(i=>`<option value="${i.v}">${i.l}</option>`).join("")}</optgroup>`).join("");
-  const today=new Date().toISOString().slice(0,10);
-
-  return`<div class="card"><h3 class="card-title">New Entry</h3>
-    <div class="form-grid" id="entryForm">
-      <div class="field field-full"><label class="lbl">Category</label><select class="sel" id="fCat" onchange="updateFormFields()">${catOptions}</select></div>
-      <div class="field" id="fSubWrap"><label class="lbl">Subcategory</label><select class="sel" id="fSub"></select></div>
-      <div class="field"><label class="lbl">Amount (₹)</label><input class="inp" id="fAmt" type="number" placeholder="0" min="0"></div>
-      <div class="field"><label class="lbl">Date</label><input class="inp" id="fDate" type="date" value="${today}"></div>
-      <div class="field hidden" id="fLenderWrap"><label class="lbl" id="fLenderLabel">Lender Name</label><input class="inp" id="fLender" placeholder="e.g. SBI, Ravi..."></div>
-      <div class="field hidden" id="fTransferWrap"><label class="lbl">Direction</label><select class="sel" id="fTransfer"><option value="bank">Cash → Bank</option><option value="cash">Bank → Cash</option></select></div>
-      <div class="field field-full"><label class="lbl">Description</label><input class="inp" id="fDesc" placeholder="e.g. Guitar strings, Tutor salary..."></div>
-    </div>
-    <button class="btn-main" onclick="addEntry()">Add Entry</button>
-  </div>`;
+const subOpts=(keys)=>keys.map(k=>`<option value="${k}">${subLabel(k)}</option>`).join(””);
+const cats=[
+{group:t(“grpIncome”),items:[{v:“income”,l:“↓ “+t(“income”)}]},
+{group:t(“grpExpenses”),items:[{v:“business_expense”,l:“↗ “+t(“business_expense”)},{v:“business_purchase”,l:“◆ “+t(“business_purchase”)},{v:“personal_expense”,l:“↑ “+t(“personal_expense”)}]},
+{group:t(“grpLiabilities”),items:[{v:“loan_taken”,l:“⬇ “+t(“loan_taken”)},{v:“loan_repayment”,l:“⬆ “+t(“loan_repayment”)},{v:“creditor_purchase”,l:“📋 “+t(“creditor_purchase”)},{v:“creditor_payment”,l:“✓ “+t(“creditor_payment”)},{v:“overdraft_taken”,l:“⚡ “+t(“overdraft_taken”)},{v:“overdraft_repayment”,l:“↩ “+t(“overdraft_repay”)}]},
+{group:t(“grpTransfer”),items:[{v:“neutral”,l:“⇄ “+t(“neutral”)}]}
+];
+let catOptions=cats.map(g=>`<optgroup label="${g.group}">${g.items.map(i=>`<option value="${i.v}">${i.l}</option>`).join("")}</optgroup>`).join(””);
+const today=new Date().toISOString().slice(0,10);
+return`<div class="card"><h3 class="card-title">${t("newEntry")}</h3> <div class="form-grid" id="entryForm"> <div class="field field-full"><label class="lbl">${t("category")}</label><select class="sel" id="fCat" onchange="updateFormFields()">${catOptions}</select></div> <div class="field" id="fSubWrap"><label class="lbl">${t("subcategory")}</label><select class="sel" id="fSub"></select></div> <div class="field"><label class="lbl">${t("amount")}</label><input class="inp" id="fAmt" type="number" placeholder="0" min="0"></div> <div class="field field-full"><label class="lbl">${t("date")}</label><input class="inp" id="fDate" type="date" value="${today}"></div> <div class="field" id="fModeWrap"><label class="lbl">${t("paymentMode")}</label><select class="sel" id="fMode"><option value="cash">${t("cash")}</option><option value="bank">${t("bankUPI")}</option></select></div> <div class="field hidden" id="fLenderWrap"><label class="lbl" id="fLenderLabel">${t("lenderName")}</label><input class="inp" id="fLender" placeholder="e.g. SBI, Ravi..."></div> <div class="field hidden" id="fTransferWrap"><label class="lbl">${t("direction")}</label><select class="sel" id="fTransfer"><option value="bank">${t("cashToBank")}</option><option value="cash">${t("bankToCash")}</option></select></div> <div class="field field-full"><label class="lbl">${t("description")}</label><input class="inp" id="fDesc" placeholder="${t("descPlaceholder")}"></div> </div> <button class="btn-main" onclick="addEntry()">${t("addEntryBtn")}</button></div>`;
 }
 
 function renderAccounts(){
-  const a=computeAll();
-  let debitItems=[{label:"Business Expense",amount:a.bizExp},{label:"Business Purchase (Cash)",amount:a.bizPurch}];
-  if(a.creditPurchases>0)debitItems.push({label:"Purchase on Credit",amount:a.creditPurchases});
-
-  const trading=accountTableHTML("Trading Account","#f59e0b",debitItems,[{label:"Business Income",amount:a.income},{label:"Opening Stock",amount:a.openingStock}],a.tradingDebit,a.tradingCredit,a.grossProfit,"Gross Profit (B − A)");
-  const pl=accountTableHTML("Profit & Loss A/C","#ef4444",[{label:"Personal Expense (Cash Out)",amount:a.persExp}],[{label:"From Gross Profit",amount:Math.max(a.grossProfit,0)}],a.plDebit,a.plCredit,a.netProfit,"Net Profit (B − A)");
-
-  // Balance Sheet
-  const liabItems=[];
-  if(a.openingStock>0)liabItems.push({label:"Capital (Opening Stock)",amount:a.openingStock});
-  if(a.creditors>0)liabItems.push({label:"Creditors",amount:a.creditors});
-  if(a.loans>0)liabItems.push({label:"Loan",amount:a.loans});
-  if(a.overdraft>0)liabItems.push({label:"Overdraft Facility",amount:a.overdraft});
-  if(!liabItems.length)liabItems.push({label:"—",amount:0});
-  const assetItems=[];
-  Object.entries(a.assetBreakdown).forEach(([k,v])=>{if(v>0)assetItems.push({label:ASSET_TYPES[k]||k,amount:v})});
-  if(Math.max(a.bankBal,0)>0)assetItems.push({label:"Bank Balance",amount:Math.max(a.bankBal,0)});
-  if(Math.max(a.cashBal,0)>0)assetItems.push({label:"Cash Balance",amount:Math.max(a.cashBal,0)});
-  if(!assetItems.length)assetItems.push({label:"—",amount:0});
-  const bs=accountTableHTML("Balance Sheet","#06b6d4",liabItems,assetItems,a.totalLiabilities,a.totalAssets,a.netWorth,"Net Worth (Assets − Liabilities)");
-
-  // Fix BS headers
-  return trading+pl+bs.replace("Debit","Liabilities").replace("Credit","Assets");
+const a=computeAll();
+let debitItems=[{label:t(“business_expense”),amount:a.bizExp},{label:t(“purchaseCash”),amount:a.bizPurch}];
+if(a.creditPurchases>0)debitItems.push({label:t(“purchaseCredit”),amount:a.creditPurchases});
+const trading=accountTableHTML(t(“tradingAccount”),”#f59e0b”,debitItems,[{label:t(“businessIncome”),amount:a.income},{label:t(“openingStock”),amount:a.openingStock}],a.tradingDebit,a.tradingCredit,a.grossProfit,t(“grossProfit”));
+const pl=accountTableHTML(t(“plAccount”),”#ef4444”,[{label:t(“personalCashOut”),amount:a.persExp}],[{label:t(“fromGrossProfit”),amount:Math.max(a.grossProfit,0)}],a.plDebit,a.plCredit,a.netProfit,t(“netProfit”));
+const liabItems=[];
+if(a.openingStock>0)liabItems.push({label:t(“capitalOS”),amount:a.openingStock});
+if(a.creditors>0)liabItems.push({label:t(“creditors”),amount:a.creditors});
+if(a.loans>0)liabItems.push({label:t(“loan”),amount:a.loans});
+if(a.overdraft>0)liabItems.push({label:t(“overdraftFac”),amount:a.overdraft});
+if(!liabItems.length)liabItems.push({label:”—”,amount:0});
+const assetItems=[];
+Object.entries(a.assetBreakdown).forEach(([k,v])=>{if(v>0)assetItems.push({label:assetLabel(k),amount:v})});
+if(Math.max(a.bankBal,0)>0)assetItems.push({label:t(“bankBalance”),amount:Math.max(a.bankBal,0)});
+if(Math.max(a.cashBal,0)>0)assetItems.push({label:t(“cashBalance”),amount:Math.max(a.cashBal,0)});
+if(!assetItems.length)assetItems.push({label:”—”,amount:0});
+const bs=accountTableHTML(t(“balanceSheet”),”#06b6d4”,liabItems,assetItems,a.totalLiabilities,a.totalAssets,a.netWorth,t(“netWorthCalc”),t(“liabilities”),t(“assets”));
+return trading+pl+bs;
 }
 
 function renderReports(){
-  const a=computeAll();
-  // Monthly
-  const months={};
-  state.entries.forEach(e=>{const mk=getMonthKey(e.date);if(!months[mk])months[mk]={income:0,business_expense:0,business_purchase:0,personal_expense:0};if(months[mk][e.category]!==undefined)months[mk][e.category]+=Number(e.amount)});
-  const sortedKeys=Object.keys(months).sort().reverse();
-  let monthlyHTML="";
-  if(sortedKeys.length){
-    let rows=sortedKeys.map(mk=>{const m=months[mk];const net=m.income-m.business_expense-m.business_purchase-m.personal_expense;
-      return`<tr><td class="td" style="font-weight:600">${getMonthLabel(mk)}</td><td class="td td-r" style="color:#22c55e">${formatINR(m.income)}</td><td class="td td-r" style="color:#f59e0b">${formatINR(m.business_expense)}</td><td class="td td-r" style="color:#3b82f6">${formatINR(m.business_purchase)}</td><td class="td td-r" style="color:#ef4444">${formatINR(m.personal_expense)}</td><td class="td td-r" style="font-weight:700;color:${net>=0?"#22c55e":"#ef4444"}">${formatINR(net)}</td></tr>`;
-    }).join("");
-    monthlyHTML=`<div class="card"><h3 class="card-title">Monthly Breakdown</h3><div class="table-wrap"><table><thead><tr><th class="th-sub">Month</th><th class="th-sub td-r">Income</th><th class="th-sub td-r">Biz Exp</th><th class="th-sub td-r">Biz Purch</th><th class="th-sub td-r">Personal</th><th class="th-sub td-r">Net</th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
-  }
-
-  // Subcategory
-  const cats=["income","business_expense","business_purchase","personal_expense"];
-  let subHTML="";
-  const hasData=cats.some(c=>a.subBreakdown[c]&&Object.keys(a.subBreakdown[c]).length>0);
-  if(hasData){
-    let inner=cats.map(cat=>{
-      const data=a.subBreakdown[cat];if(!data||!Object.keys(data).length)return"";
-      const catInfo=CATEGORIES[cat];const items=Object.entries(data).sort((a,b)=>b[1]-a[1]);const total=items.reduce((s,[,v])=>s+v,0);
-      let bars=items.map(([sub,amt])=>{const pct=total>0?(amt/total)*100:0;
-        return`<div style="margin-bottom:6px"><div style="display:flex;justify-content:space-between;font-size:12px;color:#94a3b8;margin-bottom:2px"><span>${esc(getSubLabel(cat,sub))}</span><span class="mono">${formatINR(amt)}</span></div><div style="height:4px;background:#0f172a;border-radius:2px;overflow:hidden"><div class="bar-fill" style="width:${pct}%;background:${catInfo.color}"></div></div></div>`;
-      }).join("");
-      return`<div style="margin-bottom:16px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><span style="color:${catInfo.color};font-weight:700;font-size:13px">${catInfo.icon} ${catInfo.label}</span><span class="mono" style="color:${catInfo.color};font-weight:700;font-size:13px">${formatINR(total)}</span></div>${bars}</div>`;
-    }).join("");
-    subHTML=`<div class="card"><h3 class="card-title">Category-wise Breakdown</h3>${inner}</div>`;
-  }
-
-  if(!state.entries.length)return`<p style="color:#64748b;text-align:center;padding:40px">No entries yet.</p>`;
-  return monthlyHTML+subHTML;
+const a=computeAll();
+const months={};
+state.entries.forEach(e=>{const mk=getMonthKey(e.date);if(!months[mk])months[mk]={income:0,business_expense:0,business_purchase:0,personal_expense:0};if(months[mk][e.category]!==undefined)months[mk][e.category]+=Number(e.amount)});
+const sortedKeys=Object.keys(months).sort().reverse();
+let monthlyHTML=””;
+if(sortedKeys.length){
+let rows=sortedKeys.map(mk=>{const m=months[mk];const net=m.income-m.business_expense-m.business_purchase-m.personal_expense;
+return`<tr><td class="td" style="font-weight:600">${getMonthLabel(mk)}</td><td class="td td-r" style="color:#22c55e">${formatINR(m.income)}</td><td class="td td-r" style="color:#f59e0b">${formatINR(m.business_expense)}</td><td class="td td-r" style="color:#3b82f6">${formatINR(m.business_purchase)}</td><td class="td td-r" style="color:#ef4444">${formatINR(m.personal_expense)}</td><td class="td td-r" style="font-weight:700;color:${net>=0?"#22c55e":"#ef4444"}">${formatINR(net)}</td></tr>`;
+}).join(””);
+monthlyHTML=`<div class="card"><h3 class="card-title">${t("monthlyBreakdown")}</h3><div class="table-wrap"><table><thead><tr><th class="th-sub">${t("month")}</th><th class="th-sub td-r">${t("income")}</th><th class="th-sub td-r">${t("bizExp")}</th><th class="th-sub td-r">${t("bizPurch")}</th><th class="th-sub td-r">${t("personal")}</th><th class="th-sub td-r">${t("net")}</th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
+}
+const cats=[“income”,“business_expense”,“business_purchase”,“personal_expense”];
+let subHTML=””;
+const hasData=cats.some(c=>a.subBreakdown[c]&&Object.keys(a.subBreakdown[c]).length>0);
+if(hasData){
+let inner=cats.map(cat=>{
+const data=a.subBreakdown[cat];if(!data||!Object.keys(data).length)return””;
+const col=CAT_COLORS[cat],icon=CAT_ICONS[cat],cl=catLabel(cat);
+const items=Object.entries(data).sort((a,b)=>b[1]-a[1]);const total=items.reduce((s,[,v])=>s+v,0);
+let bars=items.map(([sub,amt])=>{const pct=total>0?(amt/total)*100:0;
+return`<div style="margin-bottom:6px"><div style="display:flex;justify-content:space-between;font-size:12px;color:#94a3b8;margin-bottom:2px"><span>${esc(subLabel(sub))}</span><span class="mono">${formatINR(amt)}</span></div><div style="height:4px;background:#111827;border-radius:2px;overflow:hidden"><div class="bar-fill" style="width:${pct}%;background:${col}"></div></div></div>`;
+}).join(””);
+return`<div style="margin-bottom:16px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><span style="color:${col};font-weight:700;font-size:13px">${icon} ${cl}</span><span class="mono" style="color:${col};font-weight:700;font-size:13px">${formatINR(total)}</span></div>${bars}</div>`;
+}).join(””);
+subHTML=`<div class="card"><h3 class="card-title">${t("categoryBreakdown")}</h3>${inner}</div>`;
+}
+if(!state.entries.length)return`<p style="color:#94a3b8;text-align:center;padding:40px">${t("noEntries")}</p>`;
+return monthlyHTML+subHTML;
 }
 
-// ─── Actions ───
+// ═══════════════════════════════════════
+// ACTIONS
+// ═══════════════════════════════════════
 function addEntry(){
-  const cat=document.getElementById("fCat").value;
-  const sub=document.getElementById("fSub")?.value||null;
-  const amount=Number(document.getElementById("fAmt").value);
-  const date=document.getElementById("fDate").value;
-  const desc=document.getElementById("fDesc").value;
-  const lender=document.getElementById("fLender")?.value||null;
-  const transfer=document.getElementById("fTransfer")?.value||"bank";
-  if(!amount||amount<=0)return;
-  const needsLender=["loan_taken","loan_repayment","creditor_purchase","creditor_payment"].includes(cat);
-  state.entries.push({id:genId(),category:cat,subcategory:sub,amount,description:desc,date,transferTo:cat==="neutral"?transfer:null,lenderName:needsLender?lender:null,createdAt:Date.now()});
-  save();currentTab=0;renderApp();
+const cat=document.getElementById(“fCat”).value;
+const sub=document.getElementById(“fSub”)?.value||null;
+const amount=Number(document.getElementById(“fAmt”).value);
+const date=document.getElementById(“fDate”).value;
+const desc=document.getElementById(“fDesc”).value;
+const lender=document.getElementById(“fLender”)?.value||null;
+const transfer=document.getElementById(“fTransfer”)?.value||“bank”;
+const mode=document.getElementById(“fMode”)?.value||“cash”;
+if(!amount||amount<=0)return;
+const needsLender=[“loan_taken”,“loan_repayment”,“creditor_purchase”,“creditor_payment”].includes(cat);
+state.entries.push({id:genId(),category:cat,subcategory:sub,amount,description:desc,date,transferTo:cat===“neutral”?transfer:null,lenderName:needsLender?lender:null,paymentMode:cat===“neutral”?“cash”:mode,createdAt:Date.now()});
+save();currentTab=0;renderApp();
 }
-
-function deleteEntry(id){
-  state.entries=state.entries.filter(e=>e.id!==id);
-  save();renderApp();
-}
-
+function deleteEntry(id){state.entries=state.entries.filter(e=>e.id!==id);save();renderApp()}
 function updateFormFields(){
-  const cat=document.getElementById("fCat").value;
-  const subs=SUBCATEGORIES[cat]||[];
-  const subWrap=document.getElementById("fSubWrap");
-  const subSel=document.getElementById("fSub");
-  if(subs.length){subWrap.classList.remove("hidden");subSel.innerHTML=subs.map(s=>`<option value="${s.v}">${s.l}</option>`).join("")}
-  else{subWrap.classList.add("hidden")}
-  const needsLender=["loan_taken","loan_repayment","creditor_purchase","creditor_payment"].includes(cat);
-  document.getElementById("fLenderWrap").classList.toggle("hidden",!needsLender);
-  document.getElementById("fLenderLabel").textContent=cat.includes("creditor")?"Creditor Name":"Lender Name";
-  document.getElementById("fTransferWrap").classList.toggle("hidden",cat!=="neutral");
+const cat=document.getElementById(“fCat”).value;
+const subs=SUB_KEYS[cat]||[];
+const subWrap=document.getElementById(“fSubWrap”),subSel=document.getElementById(“fSub”);
+if(subs.length){subWrap.classList.remove(“hidden”);subSel.innerHTML=subs.map(k=>`<option value="${k}">${subLabel(k)}</option>`).join(””)}
+else{subWrap.classList.add(“hidden”)}
+const needsLender=[“loan_taken”,“loan_repayment”,“creditor_purchase”,“creditor_payment”].includes(cat);
+document.getElementById(“fLenderWrap”).classList.toggle(“hidden”,!needsLender);
+document.getElementById(“fLenderLabel”).textContent=cat.includes(“creditor”)?t(“creditorName”):t(“lenderName”);
+document.getElementById(“fTransferWrap”).classList.toggle(“hidden”,cat!==“neutral”);
+document.getElementById(“fModeWrap”).classList.toggle(“hidden”,[“neutral”,“creditor_purchase”,“overdraft_taken”,“overdraft_repayment”].includes(cat));
 }
-
-function exportData(){
-  const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});
-  const url=URL.createObjectURL(blob);const a=document.createElement("a");
-  a.href=url;a.download="ledger-backup-"+new Date().toISOString().slice(0,10)+".json";a.click();URL.revokeObjectURL(url);
-}
-
-function importData(){
-  const input=document.createElement("input");input.type="file";input.accept=".json";
-  input.onchange=e=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();
-    reader.onload=ev=>{try{const imported=JSON.parse(ev.target.result);if(imported.entries){state=imported;save();document.getElementById("stockInput").value=state.openingStock||0;renderApp();alert("Data imported!")}else alert("Invalid file.")}catch{alert("Error reading file.")}};
-    reader.readAsText(file)};input.click();
-}
-
-function resetAll(){
-  if(!confirm("Reset all data? This cannot be undone."))return;
-  state={entries:[],openingStock:0};save();
-  document.getElementById("stockInput").value=0;renderApp();
-}
-
+function exportData(){const blob=new Blob([JSON.stringify(state,null,2)],{type:“application/json”});const url=URL.createObjectURL(blob);const a=document.createElement(“a”);a.href=url;a.download=“ledger-backup-”+new Date().toISOString().slice(0,10)+”.json”;a.click();URL.revokeObjectURL(url)}
+function importData(){const input=document.createElement(“input”);input.type=“file”;input.accept=”.json”;input.onchange=e=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=ev=>{try{const imported=JSON.parse(ev.target.result);if(imported.entries){state=imported;save();document.getElementById(“stockInput”).value=state.openingStock||0;renderApp();alert(t(“imported”))}else alert(t(“invalidFile”))}catch{alert(t(“errorReading”))}};reader.readAsText(file)};input.click()}
+function resetAll(){if(!confirm(t(“resetConfirm”)))return;state={entries:[],openingStock:0};save();document.getElementById(“stockInput”).value=0;renderApp()}
 function switchTab(i){currentTab=i;renderApp()}
+function setLang(l){lang=l;localStorage.setItem(“ledger-lang”,l);document.getElementById(“hdrSub”).textContent=t(“subtitle”);document.getElementById(“hdrCapital”).textContent=t(“capital”);renderApp()}
 
-// ─── Main Render ───
 function renderApp(){
-  // Tabs
-  const tabBar=document.getElementById("tabBar");
-  tabBar.innerHTML=TABS.map((t,i)=>`<button class="tab-btn ${i===currentTab?"active":""}" onclick="switchTab(${i})">${t}</button>`).join("");
-
-  // Content
-  const content=document.getElementById("tabContent");
-  switch(currentTab){
-    case 0:content.innerHTML=renderDashboard();break;
-    case 1:content.innerHTML=renderAddEntry();setTimeout(updateFormFields,0);break;
-    case 2:content.innerHTML=renderAccounts();break;
-    case 3:content.innerHTML=renderReports();break;
-  }
+const TABS_T=[t(“dashboard”),t(“addEntry”),t(“accounts”),t(“reports”)];
+document.getElementById(“tabBar”).innerHTML=TABS_T.map((tx,i)=>`<button class="tab-btn ${i===currentTab?"active":""}" onclick="switchTab(${i})">${tx}</button>`).join(””);
+const content=document.getElementById(“tabContent”);
+switch(currentTab){
+case 0:content.innerHTML=renderDashboard();break;
+case 1:content.innerHTML=renderAddEntry();setTimeout(updateFormFields,0);break;
+case 2:content.innerHTML=renderAccounts();break;
+case 3:content.innerHTML=renderReports();break;
+}
 }
 
-// ─── Init ───
+// ═══════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════
 state=load();
-document.getElementById("stockInput").value=state.openingStock||0;
-document.getElementById("stockInput").addEventListener("change",function(){
-  state.openingStock=Number(this.value)||0;save();if(currentTab===0||currentTab===2)renderApp();
-});
+document.getElementById(“stockInput”).value=state.openingStock||0;
+document.getElementById(“stockInput”).addEventListener(“change”,function(){state.openingStock=Number(this.value)||0;save();if(currentTab===0||currentTab===2)renderApp()});
+document.getElementById(“langSel”).value=lang;
+document.getElementById(“hdrSub”).textContent=t(“subtitle”);
+document.getElementById(“hdrCapital”).textContent=t(“capital”);
 renderApp();
 </script>
 
